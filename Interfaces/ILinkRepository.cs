@@ -7,5 +7,6 @@ namespace securityApp.Interfaces
     {
         Task<RestResponse> PostUrlScanAsync(string url);
         Task<RestResponse> GetUrlScanResultAsync(string encodedUrl);
+        
     }
 }

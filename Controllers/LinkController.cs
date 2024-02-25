@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 using securityApp.Helper;
+using securityApp.Interfaces;
+using securityApp.Repositories;
 
 
 namespace securityApp.Controllers
@@ -10,45 +12,35 @@ namespace securityApp.Controllers
     public class LinkController : Controller
     {
         private VirusTotalSettings _totalSettings;
-        
+        private readonly ILinkRepository _linkRepository;
+        private readonly Encoder _encoder;
+
+
+        public LinkController(VirusTotalSettings virusTotalSettings, ILinkRepository linkRepository, Encoder encoder)
+        {
+            _totalSettings = virusTotalSettings;
+            _linkRepository = linkRepository;
+            _encoder = encoder;
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> SendLink(string link)
         {
-            
-            var options = new RestClientOptions("https://www.virustotal.com/api/v3/urls");
-            var client = new RestClient(options);
-            var request = new RestRequest("");
-            request.AddHeader("accept", "application/json");
-            request.AddHeader("x-apikey", _totalSettings.ApiKey);
-            request.AddParameter("url", link);
-            var response = await client.PostAsync(request);
-            Console.WriteLine("{0}", response.Content);
-            if (response.IsSuccessful)
-            {
-                Console.WriteLine("oldukine");
-                return Ok(response);
-
-            }
-            return BadRequest(response);
-
+            var result = await _linkRepository.PostUrlScanAsync(link);
+            return Ok();
         }
 
-        [HttpGet("{encodedLink}")]
-        public async Task<IActionResult> GetLinkResult(string encodedLink)
+        [HttpGet]
+        public async Task<IActionResult> GetLinkResult(string link)
         {
-            var options = new RestClientOptions($"https://www.virustotal.com/api/v3/urls/{encodedLink}");
-            var client = new RestClient(options);
-            var request = new RestRequest("");
-            request.AddHeader("accept", "application/json");
-            request.AddHeader("x-apikey", _totalSettings.ApiKey);
-            var response = await client.GetAsync(request);
-
-            Console.WriteLine("{0}", response.Content);
-            if (response.IsSuccessful)
+            var encodedUrl = _encoder.EncodeUrl(link);
+            var response = await _linkRepository.GetUrlScanResultAsync(encodedUrl);
+            if(response == null)
             {
-                return Ok(response);
+                return NotFound();
             }
-            return BadRequest(response);
+            return Ok(response.Content);
         }
     }
 }
