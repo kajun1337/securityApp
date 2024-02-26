@@ -34,10 +34,7 @@ namespace securityApp.Repositories
             request.AddHeader("accept", "application/json");
             request.AddHeader("x-apikey", _totalSettings.ApiKey);
             request.FormBoundary = "---011000010111000001101001";
-            Debug.WriteLine(file.FileName);
-            
-            Debug.WriteLine(Path.GetFullPath(file.FileName));
-            request.AddFile(file.FileName, Path.GetFullPath(file.FileName));
+            request.AddFile("file", file.FileName);
             var response = await client.PostAsync(request);
 
             Console.WriteLine("{0}", response.Content);
