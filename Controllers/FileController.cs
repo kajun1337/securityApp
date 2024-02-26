@@ -29,8 +29,8 @@ namespace securityApp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetResultsOfFile(string encodedFileSha256)
         {
-            var response = _fileRepository.GetFileResult(encodedFileSha256);
-            return Ok(response.Result);
+            var response = await _fileRepository.GetFileResult(encodedFileSha256);
+            return Ok(response.Content);
         }
 
     }
