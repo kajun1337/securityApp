@@ -34,7 +34,7 @@ namespace securityApp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetLinkResult(string link)
         {
-            var encodedUrl = _encoder.EncodeUrl(link);
+            var encodedUrl = _encoder.EncodeUrlToBase64(link);
             var response = await _linkRepository.GetUrlScanResultAsync(encodedUrl);
             if(response == null)
             {

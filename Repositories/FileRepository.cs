@@ -11,13 +11,22 @@ namespace securityApp.Repositories
         {
             _totalSettings = virusTotalSettings;
         }
-        public Task<RestResponse> GetFileResult(string fileSHA)
+        public async Task<RestResponse> GetFileResult(string fileSHA)
         {
-            throw new NotImplementedException();
+            var options = new RestClientOptions($"https://www.virustotal.com/api/v3/files/{fileSHA}");
+            var client = new RestClient(options);
+            var request = new RestRequest("");
+            request.AddHeader("accept", "application/json");
+            request.AddHeader("x-apikey", _totalSettings.ApiKey);
+            var response = await client.GetAsync(request);
+
+            Console.WriteLine("{0}", response.Content);
+            return response;
         }
 
-        public async Task<RestResponse> SendFile(IFormFile file)
+        public async Task<RestResponse> UploadFile(IFormFile file)
         {
+            
             var options = new RestClientOptions(_totalSettings.FileLink);
             var client = new RestClient(options);
             var request = new RestRequest("");
@@ -25,7 +34,7 @@ namespace securityApp.Repositories
             request.AddHeader("accept", "application/json");
             request.AddHeader("x-apikey", _totalSettings.ApiKey);
             request.FormBoundary = "---011000010111000001101001";
-            request.AddFile("file", file);
+            request.AddFile("file", file.Name);
             var response = await client.PostAsync(request);
 
             Console.WriteLine("{0}", response.Content);
