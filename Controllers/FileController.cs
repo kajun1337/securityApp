@@ -22,7 +22,17 @@ namespace securityApp.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
-            
+            var result = await _fileRepository.UploadFile(file);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetResultsOfFile(IFormFile file)
+        {
+            var temp = _encoder.EncodeFileToSHA265(file);
+            var response = _fileRepository.GetFileResult(temp);
+            return Ok(response);
+
         }
     }
 }
