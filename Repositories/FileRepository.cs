@@ -8,9 +8,11 @@ namespace securityApp.Repositories
     public class FileRepository : IFileRepository
     {
         private readonly VirusTotalSettings _totalSettings;
-        public FileRepository(VirusTotalSettings virusTotalSettings)
+        private readonly Encoder _encoder;
+        public FileRepository(VirusTotalSettings virusTotalSettings, Encoder encoder)
         {
             _totalSettings = virusTotalSettings;
+            _encoder = encoder;
         }
         public async Task<RestResponse> GetFileResult(string fileSHA)
         {
@@ -27,6 +29,7 @@ namespace securityApp.Repositories
 
         public async Task<RestResponse> UploadFile(IFormFile file)
         {
+            Console.WriteLine(_encoder.EncodeFileToSHA265(file));
             var options = new RestClientOptions(_totalSettings.FileLink);
             var client = new RestClient(options);
             var request = new RestRequest("");
@@ -34,6 +37,8 @@ namespace securityApp.Repositories
             request.AddHeader("accept", "application/json");
             request.AddHeader("x-apikey", _totalSettings.ApiKey);
             request.FormBoundary = "---011000010111000001101001";
+            Console.WriteLine(file.FileName);
+            Console.WriteLine(Path.GetFullPath(file.FileName));
             request.AddFile("file", file.FileName);
             var response = await client.PostAsync(request);
 
