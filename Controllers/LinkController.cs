@@ -25,6 +25,7 @@ namespace securityApp.Controllers
 
 
         [HttpPost]
+        
         public async Task<IActionResult> SendLink(string link)
         {
             var result = await _linkRepository.PostUrlScanAsync(link);
