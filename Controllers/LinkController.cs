@@ -25,7 +25,7 @@ namespace securityApp.Controllers
 
 
         [HttpPost]
-        
+        [Route("SendLink")]
         public async Task<IActionResult> SendLink(string link)
         {
             var result = await _linkRepository.PostUrlScanAsync(link);
@@ -33,6 +33,7 @@ namespace securityApp.Controllers
         }
 
         [HttpGet]
+        [Route("GetLinkResult")]
         public async Task<IActionResult> GetLinkResult(string link)
         {
             var encodedUrl = _encoder.EncodeUrlToBase64(link);

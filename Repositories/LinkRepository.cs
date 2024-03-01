@@ -32,6 +32,7 @@ namespace securityApp.Repositories
             var request = new RestRequest("");
             request.AddHeader("accept", "application/json");
             request.AddHeader("x-apikey", _totalSettings.ApiKey);
+            Console.WriteLine(url);
             request.AddParameter("url", url);
             var response = await client.PostAsync(request);
             Console.WriteLine(response.Content);

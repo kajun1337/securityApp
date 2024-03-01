@@ -12,8 +12,11 @@
 
     <script>
         async function sendLink() {
+            
             const link = document.getElementById("linkInput").value;
-            const response = await fetch('/SendLink', {
+            const uri = `http://localhost:5090/Link/SendLink?link=${link}`;
+            console.log(link);
+            const response = await fetch(uri, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -22,6 +25,7 @@
                     link: link
                 })
             });
+            console.log(response);
             if (response.ok) {
                 getResult(link);
             } else {
@@ -30,10 +34,13 @@
         }
 
         async function getResult(link) {
-            const response = await fetch(`/GetLinkResult?link=${encodeURIComponent(link)}`);
+            console.log("grdi");
+            const response = await fetch(`http://localhost:5090/Link/GetLinkResult?link=${encodeURIComponent(link)}`);
+            console.log(response);
             if (response.ok) {
                 const data = await response.json();
                 document.getElementById("result").innerText = data;
+                
             } else if (response.status === 404) {
                 document.getElementById("result").innerText = "Link not found";
             } else {

@@ -4,3 +4,8 @@ GET {{securityApp_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+POST {{securityApp_HostAddress}}/Link/SendLink/
+Accept: application/json
+
+###
