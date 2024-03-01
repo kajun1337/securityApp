@@ -37,3 +37,10 @@ async function getResult(link) {
         console.error('Error getting link result');
     }
 }
+
+async function sendFile() {
+    const file = getElementById("fileInput").file;
+    const response = await fetch(
+
+    )
+}

@@ -4,11 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Scanner</title>
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-    <input type="text" id="linkInput" placeholder="Enter URL">
-    <button onclick="sendLink()">Scan Link</button>
-    <div id="result"></div>
+    <div class="link-container">
+        <input type="text" id="linkInput" placeholder="Enter URL">
+        <button onclick="sendLink()">Scan Link</button>
+        <div id="result"></div>
+    </div>
+
+    <div class="file-container">
+        <input type="file" id="fileInput">
+        <button>SendFile</button>
+    </div>
+
+
 
     <script src="js/site.js"></script>
    
