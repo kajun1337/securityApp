@@ -26,7 +26,7 @@ namespace securityApp.Controllers
         [Route("UploadFile")]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
-
+            Console.WriteLine(_encoder.EncodeFileToSHA265(file));
             var result = await _fileRepository.UploadFile(file);
             Console.WriteLine(result.Content);
             return Ok(result.Content);
