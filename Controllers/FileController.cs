@@ -20,6 +20,7 @@ namespace securityApp.Controllers
             _virusTotalSettings = virusTotalSettings;
         }
         [HttpPost]
+        [Route("UploadFile")]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
             var result = await _fileRepository.UploadFile(file);
@@ -27,9 +28,11 @@ namespace securityApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetResultsOfFile(string encodedFileSha256)
+        [Route("GetFileResults")]
+        public async Task<IActionResult> GetResultsOfFile(IFormFile file)
         {
-            var response = await _fileRepository.GetFileResult(encodedFileSha256);
+            var fileCrypt = _encoder.EncodeFileToSHA265(file);
+            var response = await _fileRepository.GetFileResult(fileCrypt);
             return Ok(response.Content);
         }
 

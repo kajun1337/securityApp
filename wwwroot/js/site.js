@@ -38,9 +38,19 @@ async function getResult(link) {
     }
 }
 
-async function sendFile() {
-    const file = getElementById("fileInput").file;
-    const response = await fetch(
+async function UploadFile() {
+    console.log("file sent");
+    const file = document.getElementById("fileInput").files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    const uri = `http://localhost:5090/File/UploadFile?file=${file}`;
 
-    )
+    const response = await fetch(uri, {
+        method: 'POST',
+        body: formData
+
+    });
+
+    console.log(response);
+
 }
