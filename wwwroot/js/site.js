@@ -1,5 +1,4 @@
-
-import { createHash } from 'crypto';
+const { createHash } = require('crypto');
 async function sendLink() {
 
     const link = document.getElementById("linkInput").value;
@@ -52,4 +51,5 @@ async function uploadFile() {
     });
     
 }
+
 

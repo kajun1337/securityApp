@@ -10,6 +10,9 @@ namespace securityApp.Controllers
     [Route("[controller]")]
     public class FileController : Controller
     {
+        private const string folderName = "FilesToUpload";
+        private readonly string folderPath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
         private readonly IFileRepository _fileRepository;
         private readonly Encoder _encoder;
         private readonly VirusTotalSettings _virusTotalSettings;
@@ -23,8 +26,10 @@ namespace securityApp.Controllers
         [Route("UploadFile")]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
+
             var result = await _fileRepository.UploadFile(file);
-            return Ok();
+            Console.WriteLine(result.Content);
+            return Ok(result.Content);
         }
 
         [HttpGet]
