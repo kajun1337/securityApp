@@ -1,5 +1,5 @@
 
-
+import { createHash } from 'crypto';
 async function sendLink() {
 
     const link = document.getElementById("linkInput").value;
@@ -38,7 +38,7 @@ async function getResult(link) {
     }
 }
 
-async function UploadFile() {
+async function uploadFile() {
     console.log("file sent");
     const file = document.getElementById("fileInput").files[0];
     const formData = new FormData();
@@ -50,7 +50,6 @@ async function UploadFile() {
         body: formData
 
     });
-
-    console.log(response);
-
+    
 }
+

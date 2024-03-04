@@ -29,10 +29,9 @@ namespace securityApp.Controllers
 
         [HttpGet]
         [Route("GetFileResults")]
-        public async Task<IActionResult> GetResultsOfFile(IFormFile file)
+        public async Task<IActionResult> GetResultsOfFile(string encodedFileSha256)
         {
-            var fileCrypt = _encoder.EncodeFileToSHA265(file);
-            var response = await _fileRepository.GetFileResult(fileCrypt);
+            var response = await _fileRepository.GetFileResult(encodedFileSha256);
             return Ok(response.Content);
         }
 
