@@ -37,6 +37,7 @@ namespace securityApp.Controllers
         public async Task<IActionResult> GetResultsOfFile(string encodedFileSha256)
         {
             var response = await _fileRepository.GetFileResult(encodedFileSha256);
+            Console.WriteLine(response.Content);
             return Ok(response.Content);
         }
 

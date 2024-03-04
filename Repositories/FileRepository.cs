@@ -54,7 +54,7 @@ namespace securityApp.Repositories
             request.AddHeader("x-apikey", _totalSettings.ApiKey);
             request.FormBoundary = "---011000010111000001101001";
             
-            request.AddFile(file.FileName, filePath ,file.ContentType);
+            request.AddFile("file", filePath ,file.ContentType);
             var response = await client.PostAsync(request);
 
             Console.WriteLine("{0}", response.Content);

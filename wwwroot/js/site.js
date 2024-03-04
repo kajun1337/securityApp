@@ -49,7 +49,13 @@ async function uploadFile() {
         body: formData
 
     });
+
+    getFilesResult();
     
+}
+async function getFilesResult(file) {
+    const response = await fetch(`http://localhost:5090/File/GetFileResults?file=${file}`);
+    console.log(response.status);
 }
 
 
