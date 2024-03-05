@@ -56,23 +56,36 @@ async function uploadFile() {
 }
 async function getFilesResult() {
     const fileToScan = document.getElementById("fileInput").files[0];
-    const hash = filesToSha256(fileToScan);
-    const response = await fetch(`http://localhost:5090/File/GetFileResults?encodedFileSha256=${hash}`);
-    console.log(response.status);
+    console.log(fileToScan);
+    filesToSha256(fileToScan).then(hash => {
+        const hashed = hash;
+        console.log(hashed); // Hash deðerini konsola yazdýr
+        fetch(`http://localhost:5090/File/GetFileResults?encodedFileSha256=${hashed}`)
+            .then(response => {
+                console.log(response.status); // Yanýt durumunu konsola yazdýr
+            })
+            .catch(error => {
+                console.error(error); // Hata durumunda hata mesajýný konsola yazdýr
+            });
+    });
 }
 function filesToSha256(file) {
-    const reader = new FileReader();
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
 
-    reader.onload = function () {
-        const buffer = reader.result;
+        reader.onload = function () {
+            const buffer = reader.result;
 
-        const hash = crypto.subtle.digest("SHA-256", buffer);
+            crypto.subtle.digest("SHA-256", buffer).then(hash => {
+                const hexString = Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
+                resolve(hexString);
+            }).catch(error => {
+                reject(error);
+            });
+        };
 
-        const hexString = Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
-        console.log(hexString);
-    };
-
-    reader.readAsArrayBuffer(file);
+        reader.readAsArrayBuffer(file);
+    });
 }
 function dragOverHandler(event) {
     event.preventDefault();
