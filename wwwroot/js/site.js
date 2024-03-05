@@ -1,4 +1,5 @@
 const { createHash } = require('crypto');
+const { read } = require('fs');
 async function sendLink() {
 
     const link = document.getElementById("linkInput").value;
@@ -53,9 +54,25 @@ async function uploadFile() {
     getFilesResult();
     
 }
-async function getFilesResult(file) {
-    const response = await fetch(`http://localhost:5090/File/GetFileResults?file=${file}`);
+async function getFilesResult() {
+    const fileToScan = document.getElementById("fileInput").files[0];
+    const hash = filesToSha256(fileToScan);
+    const response = await fetch(`http://localhost:5090/File/GetFileResults?encodedFileSha256=${hash}`);
     console.log(response.status);
+}
+function filesToSha256(file) {
+    const reader = new FileReader();
+
+    reader.onload = function () {
+        const buffer = reader.result;
+
+        const hash = crypto.subtle.digest("SHA-256", buffer);
+
+        const hexString = Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
+        console.log(hexString);
+    };
+
+    reader.readAsArrayBuffer(file);
 }
 function dragOverHandler(event) {
     event.preventDefault();
