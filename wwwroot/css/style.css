@@ -1,8 +1,7 @@
-﻿.drop-container{
-    border: 2px dashed #ccc;
-    padding: 20px;
-    text-align: center;
-    margin: 20px;
+﻿#drop_zone {
+    border: 5px solid blue;
+    width: 200px;
+    height: 100px;
 }
 .file-container{
     text-align: center;

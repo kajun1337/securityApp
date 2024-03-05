@@ -16,13 +16,13 @@ async function sendLink() {
     });
     console.log(response);
     if (response.ok) {
-        getResult(link);
+        getLinkResult(link);
     } else {
         console.error('Error sending link');
     }
 }
 
-async function getResult(link) {
+async function getLinkResult(link) {
     console.log("grdi");
     const response = await fetch(`http://localhost:5090/Link/GetLinkResult?link=${encodeURIComponent(link)}`);
     console.log(response);
@@ -50,22 +50,22 @@ async function uploadFile() {
         body: formData
 
     });
-
+    console.log("girdi mi");
     getFilesResult();
-    
+    console.log("çýktý mý");
 }
 async function getFilesResult() {
     const fileToScan = document.getElementById("fileInput").files[0];
     console.log(fileToScan);
     filesToSha256(fileToScan).then(hash => {
         const hashed = hash;
-        console.log(hashed); // Hash deðerini konsola yazdýr
+        console.log(hashed); 
         fetch(`http://localhost:5090/File/GetFileResults?encodedFileSha256=${hashed}`)
             .then(response => {
-                console.log(response.status); // Yanýt durumunu konsola yazdýr
+                console.log(response.status); 
             })
             .catch(error => {
-                console.error(error); // Hata durumunda hata mesajýný konsola yazdýr
+                console.error(error); 
             });
     });
 }
