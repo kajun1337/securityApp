@@ -57,5 +57,13 @@ async function getFilesResult(file) {
     const response = await fetch(`http://localhost:5090/File/GetFileResults?file=${file}`);
     console.log(response.status);
 }
+function dragOverHandler(event) {
+    event.preventDefault();
+}
 
+function dropHandler(event) {
+    event.preventDefault();
+    var files = event.dataTransfer.files;
+    uploadFile(files);
+}
 

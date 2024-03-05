@@ -1,2 +1,18 @@
-﻿body {
+﻿.drop-container{
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    margin: 20px;
+}
+.file-container{
+    text-align: center;
+}
+.file-container button{
+    margin: 0 auto;
+    display: block;
+}
+
+.file-container label{
+    margin: 0 auto;
+    display: block;
 }
