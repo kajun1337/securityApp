@@ -4,21 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Scanner</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css">
     <script src="js/site.js"></script>
 </head>
     
 <body>
-    <div id="drop_zone"
-         ondrop="dropHandler(event);"
-         ondragover="dragOverHandler(event);">
-        <p>Drag one or more files to this <i>drop zone</i>.</p>
+    
+    <div class="container">
+        <div class="drag-drop-container">
+            <div class="file-drop-area">
+                <span class="fake-btn">Choose Files</span>
+                <span class="file-msg">or drop your files here</span>
+                <input class="file-input" id="fileInput" type="file">
+                <button class="scan-file" onclick="uploadFile()" style="cursor:pointer;">Scan File</button>
+                <div class="item-delete"></div>
+                <script src="js/drag_drop.js"></script>
+            </div>
+        </div>
+
+        <div class="link-container">
+            <input type="text" id="linkInput" placeholder="Enter URL">
+            <button onclick="sendLink()">Scan Link</button>
+            <div id="result"></div>
+        </div>
     </div>
+    <!--
+
 
     <div class="file-container">
         <input type="file" id="fileInput" style="display: none;">
         <label for="fileInput" class="custom-file-upload">Select File</label>
-        <button class="scan-file" onclick="uploadFile()">Scan File</button>
+        <button class="scan-file" onclick="uploadFile()" style="cursor:pointer;">Scan File</button>
     </div>
 
     <div class="link-container">
@@ -27,7 +43,7 @@
         <div id="result"></div>
     </div>
 
-
+        -->
 </body>
 
 </html>

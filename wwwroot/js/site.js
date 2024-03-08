@@ -1,11 +1,14 @@
 const { createHash } = require('crypto');
 const { read } = require('fs');
+const { url } = require('inspector');
 async function sendLink() {
 
     const link = document.getElementById("linkInput").value;
     const uri = `http://localhost:5090/Link/SendLink?link=${link}`;
     console.log(link);
+    console.log(uri);
     const response = await fetch(uri, {
+        mode:'no-cors',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -14,7 +17,7 @@ async function sendLink() {
             link: link
         })
     });
-    console.log(response);
+    console.log(response.status);
     if (response.ok) {
         getLinkResult(link);
     } else {
@@ -24,7 +27,9 @@ async function sendLink() {
 
 async function getLinkResult(link) {
     console.log("grdi");
-    const response = await fetch(`http://localhost:5090/Link/GetLinkResult?link=${encodeURIComponent(link)}`);
+    const response = await fetch(`http://localhost:5090/Link/GetLinkResult?link=${encodeURIComponent(link)}`,{
+        mode: 'no-cors'
+    });
     console.log(response);
     if (response.ok) {
         const data = await response.json();
