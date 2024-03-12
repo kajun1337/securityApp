@@ -1,4 +1,3 @@
-const { error } = require('console');
 const { createHash } = require('crypto');
 const { read } = require('fs');
 const { url } = require('inspector');
@@ -19,7 +18,7 @@ async function sendLink() {
             link: link
         })
     });
-    console.log(response.status);
+    //console.log(response.status);
     if (response.ok) {
         getLinkResult(link);
     } else {
@@ -32,10 +31,15 @@ async function getLinkResult(link) {
     const response = await fetch(`http://localhost:5090/Link/GetLinkResult?link=${encodeURIComponent(link)}`,{
         mode: 'no-cors'
     });
-    console.log(response);
+    console.log(response.status);
     if (response.ok) {
+        console.log("gg");
         const data = await response.json();
-        document.getElementById("result").innerText = data;
+        console.log(data);
+        const lastAnalysisResults = data.data.attributes.last_analysis_results;
+        console.log(lastAnalysisResults);
+
+        document.getElementById("result").innerText = lastAnalysisResults[0];
         console.log("take your jason");
 
     } else if (response.status === 404) {
@@ -102,13 +106,5 @@ function filesToSha256(file) {
         reader.readAsArrayBuffer(file);
     });
 }
-function dragOverHandler(event) {
-    event.preventDefault();
-}
 
-function dropHandler(event) {
-    event.preventDefault();
-    var files = event.dataTransfer.files;
-    uploadFile(files);
-}
 
