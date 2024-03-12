@@ -1,3 +1,4 @@
+const { error } = require('console');
 const { createHash } = require('crypto');
 const { read } = require('fs');
 const { url } = require('inspector');
@@ -57,8 +58,10 @@ async function uploadFile() {
 
     });
     console.log("girdi mi");
-    getFilesResult();
+    let result = getFilesResult();
+    console.log(result.json());
     console.log("çýktý mý");
+
 }
 async function getFilesResult() {
     const fileToScan = document.getElementById("fileInput").files[0];
@@ -68,12 +71,18 @@ async function getFilesResult() {
         console.log(hashed); 
         fetch(`http://localhost:5090/File/GetFileResults?encodedFileSha256=${hashed}`)
             .then(response => {
-                console.log(response.status); 
+                return response.json();
             })
             .catch(error => {
-                console.error(error); 
+                console.error(error);
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error(error);
             });
-    });
+    });  
 }
 function filesToSha256(file) {
     return new Promise((resolve, reject) => {

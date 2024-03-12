@@ -3,6 +3,8 @@ using RestSharp;
 using securityApp.Helper;
 using securityApp.Interfaces;
 using securityApp.Repositories;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 
 namespace securityApp.Controllers
@@ -41,6 +43,12 @@ namespace securityApp.Controllers
             if(response == null)
             {
                 return NotFound();
+            }
+            JObject result = JObject.Parse(response.Content);
+            IList<JToken> results = result["data"]["attributes"]["last_analysis_results"].Children().ToList();
+            foreach(var item in  results)
+            {
+                Console.WriteLine(item.ToString());
             }
             return Ok(response.Content);
         }

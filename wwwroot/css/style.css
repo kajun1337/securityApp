@@ -20,11 +20,7 @@ body {
     flex-direction:column;
     justify-content: space-around;
 }
-#myProgress {
-    width: 100%;
-    background-color:red;
-    color: #D7D7EF;
-}
+
 
 #myBar {
     width: 1%;

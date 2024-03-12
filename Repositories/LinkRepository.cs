@@ -21,7 +21,7 @@ namespace securityApp.Repositories
             request.AddHeader("accept", "application/json");
             request.AddHeader("x-apikey", _totalSettings.ApiKey);
             var response = await client.GetAsync(request);
-            Console.WriteLine(response.Content);
+            //Console.WriteLine(response.Content);
             return response;
         }
 
@@ -35,7 +35,7 @@ namespace securityApp.Repositories
             Console.WriteLine(url);
             request.AddParameter("url", url);
             var response = await client.PostAsync(request);
-            Console.WriteLine(response.Content);
+            //Console.WriteLine(response.Content);
             return response;
         }
     }

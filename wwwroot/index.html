@@ -17,18 +17,16 @@
                 <span class="fake-btn">Choose Files</span>
                 <span class="file-msg">or drop your files here</span>
                 <input class="file-input" id="fileInput" type="file">
-                <button class="scan-file" onclick="uploadFile(), move()" style="cursor:pointer;">Scan File</button>
+                <button class="scan-file" onclick="uploadFile()" style="cursor:pointer;">Scan File</button>
                 <div class="item-delete"></div>
                 <script src="js/drag_drop.js"></script>
             </div>
 
         </div>
-        <div id="myProgress">
-            <div id="myBar"></div>
-        </div>
+
         <div class="link-container">
             <input type="text" id="linkInput" placeholder="Enter URL">
-            <button onclick="sendLink(), move()">Scan Link</button>
+            <button onclick="sendLink()">Scan Link</button>
             <div id="result"></div>
         </div>
     </div>
