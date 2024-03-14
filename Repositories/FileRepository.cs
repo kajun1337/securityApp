@@ -8,9 +8,10 @@ namespace securityApp.Repositories
 {
     public class FileRepository : IFileRepository
     {
+        private const string filesLink = "https://www.virustotal.com/api/v3/files/";
         private const string folderName = "FilesToUpload";
         private readonly string folderPath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-
+        
         private readonly VirusTotalSettings _totalSettings;
         private readonly Encoder _encoder;
 
@@ -21,7 +22,8 @@ namespace securityApp.Repositories
         }
         public async Task<RestResponse> GetFileResult(string fileSHA)
         {
-            var options = new RestClientOptions($"https://www.virustotal.com/api/v3/files/{fileSHA}");
+            var options = new RestClientOptions($"{filesLink}{fileSHA}");
+            Console.WriteLine($"{filesLink}{fileSHA}");
             var client = new RestClient(options);
             var request = new RestRequest("");
             request.AddHeader("accept", "application/json");

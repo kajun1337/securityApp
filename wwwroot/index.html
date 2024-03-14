@@ -12,23 +12,24 @@
 
     <div class="container">
         <div class="drag-drop-container">
-            <div class="file-drop-area">
-                <span class="fake-btn">Choose Files</span>
-                <span class="file-msg">or drop your files here</span>
-                <input class="file-input" id="fileInput" type="file">
+            <div class="file-drop-area" id="drop-zone" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)" ondragleave="dragLeaveHandler(event)">
+                <input class="file-input" id="fileInput" type="file" onchange="fileInputChangeHandler(event)">
+                <p>Drag & drop files here or click to select files</p>
                 <button class="scan-file" onclick="uploadFile()" style="cursor:pointer;">Scan File</button>
-                <div class="item-delete"></div>
             </div>
-
-        </div>
-
-        <div class="link-container">
-            <input type="text" id="linkInput" placeholder="Enter URL">
-            <button onclick="sendLink()">Scan Link</button>
-            <div id="result"></div>
         </div>
     </div>
+
+
+    <div class="link-container">
+        <input type="text" id="linkInput" placeholder="Enter URL">
+        <button onclick="sendLink()">Scan Link</button>
+        <div id="result"></div>
+    </div>
+
     <script src="js/site.js?2"></script>
+    <script src="js/dragAndDrop.js"></script>
+
     <!--
 
 

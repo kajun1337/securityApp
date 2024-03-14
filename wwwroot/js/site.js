@@ -63,7 +63,7 @@ async function uploadFile() {
     });
     console.log("girdi mi");
     let result = getFilesResult();
-    console.log(result.json());
+    console.log(result.json);
     console.log("çýktý mý");
 
 }
