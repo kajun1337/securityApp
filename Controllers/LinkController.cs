@@ -44,12 +44,21 @@ namespace securityApp.Controllers
             {
                 return NotFound();
             }
-            JObject result = JObject.Parse(response.Content);
-            IList<JToken> results = result["data"]["attributes"]["last_analysis_results"].Children().ToList();
-            foreach(var item in  results)
+
+            if(response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                Console.WriteLine(item.ToString());
+                return await GetLinkResult(link);
             }
+            else
+            {
+                JObject result = JObject.Parse(response.Content);
+                var lastAnalysisResult = result["data"]["attributes"]["last_analysis_results"];
+                if (lastAnalysisResult.ToString() == "{}")
+                {
+                    return await GetLinkResult(link);
+                }
+            }
+
             return Ok(response.Content);
         }
     }
