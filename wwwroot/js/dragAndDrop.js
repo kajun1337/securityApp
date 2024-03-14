@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('fileInput').click();
     });
 });
+
 function dragOverHandler(event) {
     event.preventDefault();
     document.getElementById("drop-zone").classList.add("drag-over");

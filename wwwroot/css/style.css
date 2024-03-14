@@ -16,9 +16,7 @@ body {
     align-items: center;
     justify-content: space-around;
 }
-.file-drop-area input{
-    display:none;
-}
+
 .file-drop-area{
     height: 300px;
     width: 300px;
@@ -35,6 +33,14 @@ body {
     margin-left: 100px;
     margin-right: 100px;
 
+}
+
+.file-input {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    font: 13px sans-serif
 }
 
 
