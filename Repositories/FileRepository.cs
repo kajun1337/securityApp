@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json.Linq;
+using RestSharp;
 using securityApp.Helper;
 using securityApp.Interfaces;
 using System.Diagnostics;
@@ -8,6 +9,7 @@ namespace securityApp.Repositories
 {
     public class FileRepository : IFileRepository
     {
+        private bool isMyFileReady = false;
         private const string filesLink = "https://www.virustotal.com/api/v3/files/";
         private const string folderName = "FilesToUpload";
         private readonly string folderPath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
@@ -22,6 +24,8 @@ namespace securityApp.Repositories
         }
         public async Task<RestResponse> GetFileResult(string fileSHA)
         {
+
+
             var options = new RestClientOptions($"{filesLink}{fileSHA}");
             Console.WriteLine($"{filesLink}{fileSHA}");
             var client = new RestClient(options);
@@ -31,6 +35,22 @@ namespace securityApp.Repositories
             var response = await client.GetAsync(request);
 
             Console.WriteLine("{0}", response.Content);
+            if(response.StatusCode == System.Net.HttpStatusCode.NotFound )
+            {
+                Console.WriteLine(response.Content);
+                return await GetFileResult(fileSHA);
+            }
+            else
+            {
+                JObject result = JObject.Parse(response.Content);
+                var lastAnalysisResults = result["data"]["attributes"]["last_analysis_results"];
+
+                if (lastAnalysisResults.ToString() == "{}")
+                {
+                    Console.WriteLine(result["data"]["attributes"]["last_analysis_results"]);
+                    return await GetFileResult(fileSHA);
+                }
+            }
             return response;
         }
 
@@ -58,9 +78,10 @@ namespace securityApp.Repositories
             
             request.AddFile("file", filePath ,file.ContentType);
             var response = await client.PostAsync(request);
-
             Console.WriteLine("{0}", response.Content);
             return response;
         }
+
+
     }
 }

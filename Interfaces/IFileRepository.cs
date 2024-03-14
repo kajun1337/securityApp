@@ -6,5 +6,6 @@ namespace securityApp.Interfaces
     {
         Task<RestResponse> UploadFile(IFormFile file);
         Task<RestResponse> GetFileResult(string fileSHA);
+        
     }
 }
