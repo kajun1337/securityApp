@@ -2,6 +2,7 @@ const { createHash } = require('crypto');
 const { read } = require('fs');
 const { url } = require('inspector');
 
+const SendLinkuri = "http://localhost:5090/Link/SendLink?link=";
 async function sendLink() {
 
     const link = document.getElementById("linkInput").value;

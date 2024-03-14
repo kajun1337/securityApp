@@ -1,4 +1,13 @@
 
+document.addEventListener('DOMContentLoaded', function () {
+    const dropZone = document.getElementById('drop-zone');
+    dropZone.addEventListener('click', function (event) {
+        if (event.target !== dropZone) {
+            return; 
+        }
+        document.getElementById('fileInput').click();
+    });
+});
 function dragOverHandler(event) {
     event.preventDefault();
     document.getElementById("drop-zone").classList.add("drag-over");
@@ -28,5 +37,6 @@ function handleFiles(files) {
         document.getElementById("fileInput").files = files;
     }
 }
+
 
 

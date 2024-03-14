@@ -13,8 +13,9 @@
     <div class="container">
         <div class="drag-drop-container">
             <div class="file-drop-area" id="drop-zone" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)" ondragleave="dragLeaveHandler(event)">
-                <input class="file-input" id="fileInput" type="file" onchange="fileInputChangeHandler(event)">
+
                 <p>Drag & drop files here or click to select files</p>
+                <input class="file-input" id="fileInput" type="file" onchange="fileInputChangeHandler(event)">
                 <button class="scan-file" onclick="uploadFile()" style="cursor:pointer;">Scan File</button>
             </div>
         </div>
