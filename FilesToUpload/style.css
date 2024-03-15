@@ -1,4 +1,4 @@
-﻿html, body {
+html, body {
     height: 100%;
 }
 
@@ -16,7 +16,6 @@ body {
     align-items: center;
     justify-content: space-around;
 }
-
 .file-drop-area{
     height: 300px;
     width: 300px;
@@ -24,15 +23,8 @@ body {
     display: flex;
     flex-direction:column;
     justify-content: space-around;
-    align-items:center;
     margin-bottom: 40px;
 
-}
-.drag-drop-container{
-    display:flex;
-    flex-direction:column;
-    justify-content:space-around;
-    align-items:center;
 }
 .file-drop-area .scan-file{
     background-color: green;
@@ -41,19 +33,3 @@ body {
     margin-right: 100px;
 
 }
-#drop-zone.drag-over {
-    background-color: #f0f0f0;
-    border-color: #999;
-}
-
-.file-input {
-    border: 0;
-    padding: 0;
-    margin: 0;
-    background: transparent;
-    font: 13px sans-serif
-}
-
-
-
-

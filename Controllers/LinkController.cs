@@ -40,10 +40,6 @@ namespace securityApp.Controllers
         {
             var encodedUrl = _encoder.EncodeUrlToBase64(link);
             var response = await _linkRepository.GetUrlScanResultAsync(encodedUrl);
-            if(response == null)
-            {
-                return NotFound();
-            }
 
             if(response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {

@@ -36,6 +36,10 @@ function handleFiles(files) {
     if (files.length > 0) {
         const file = files[0];
         document.getElementById("fileInput").files = files;
+
+        const fileNameDisplay = document.getElementById("file-name-display");
+
+        fileNameDisplay.textContent = file.name;
     }
 }
 

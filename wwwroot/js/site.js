@@ -34,14 +34,14 @@ async function getLinkResult(link) {
     });
     console.log(response.status);
     if (response.ok) {
-        console.log("gg");
+        ;
         const data = await response.json();
         console.log(data);
         const lastAnalysisResults = data.data.attributes.last_analysis_results;
         console.log(lastAnalysisResults);
 
         document.getElementById("result").innerText = lastAnalysisResults[0];
-        console.log("take your jason");
+        
 
     } else if (response.status === 404) {
         document.getElementById("result").innerText = "Link not found";
@@ -62,10 +62,10 @@ async function uploadFile() {
         body: formData
 
     });
-    console.log("girdi mi");
+    
     let result = getFilesResult();
     console.log(result.json);
-    console.log("çýktý mý");
+    
 
 }
 async function getFilesResult() {
