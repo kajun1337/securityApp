@@ -28,17 +28,22 @@ body {
     margin-bottom: 40px;
 
 }
+
 .drag-drop-container{
     display:flex;
     flex-direction:column;
     justify-content:space-around;
     align-items:center;
 }
-.file-drop-area .scan-file{
-    background-color: green;
+
+.scan-file{
+    background-color: darkblue;
     justify-self: center;
     margin-left: 100px;
     margin-right: 100px;
+    border-radius: 20px;
+    color:aqua;
+    padding: 6px;
 
 }
 #drop-zone.drag-over {
@@ -52,6 +57,14 @@ body {
     margin: 0;
     background: transparent;
     font: 13px sans-serif
+}
+
+.scan-link {
+    background-color: darkblue;
+    border-radius: 20px;
+    color: aqua;
+    padding: 3px;
+    cursor: pointer;
 }
 
 

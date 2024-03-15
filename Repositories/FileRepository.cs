@@ -38,6 +38,7 @@ namespace securityApp.Repositories
             if(response.StatusCode == System.Net.HttpStatusCode.NotFound )
             {
                 Console.WriteLine(response.Content);
+                await Task.Delay(1000);
                 return await GetFileResult(fileSHA);
             }
             else
@@ -48,6 +49,7 @@ namespace securityApp.Repositories
                 if (lastAnalysisResults.ToString() == "{}")
                 {
                     Console.WriteLine(result["data"]["attributes"]["last_analysis_results"]);
+                    await Task.Delay(1000);
                     return await GetFileResult(fileSHA);
                 }
             }

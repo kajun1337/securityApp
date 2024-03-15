@@ -2,6 +2,7 @@ using securityApp.Helper;
 using securityApp.Interfaces;
 using securityApp.Repositories;
 
+var SpecificOrigins = "AllowSpecificOrigin";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,7 +16,18 @@ builder.Services.AddSingleton<Encoder>();
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: SpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:7046","http://localhost:5090").AllowAnyMethod().AllowAnyHeader();
+
+        });
+});
+
 var app = builder.Build();
+
 
 //Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
@@ -31,6 +43,10 @@ if (builder.Environment.IsDevelopment())
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
+app.UseCors(SpecificOrigins);
+
+app.UseRouting();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

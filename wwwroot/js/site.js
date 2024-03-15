@@ -1,6 +1,4 @@
-const { createHash } = require('crypto');
-const { read } = require('fs');
-const { url } = require('inspector');
+
 
 const SendLinkuri = "http://localhost:5090/Link/SendLink?link=";
 async function sendLink() {
@@ -10,7 +8,7 @@ async function sendLink() {
     console.log(link);
     console.log(uri);
     const response = await fetch(uri, {
-        mode:'no-cors',
+        //mode:'no-cors',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -19,7 +17,7 @@ async function sendLink() {
             link: link
         })
     });
-    //console.log(response.status);
+    console.log(response.status);
     if (response.ok) {
         getLinkResult(link);
     } else {
@@ -30,7 +28,7 @@ async function sendLink() {
 async function getLinkResult(link) {
     console.log("grdi");
     const response = await fetch(`http://localhost:5090/Link/GetLinkResult?link=${encodeURIComponent(link)}`,{
-        mode: 'no-cors'
+        //mode: 'no-cors'
     });
     console.log(response.status);
     if (response.ok) {
@@ -38,7 +36,7 @@ async function getLinkResult(link) {
         const data = await response.json();
         console.log(data);
         const lastAnalysisResults = data.data.attributes.last_analysis_results;
-        console.log(lastAnalysisResults);
+        console.log(typeof(lastAnalysisResults));
 
         document.getElementById("result").innerText = lastAnalysisResults[0];
         
@@ -58,6 +56,7 @@ async function uploadFile() {
     const uri = `http://localhost:5090/File/UploadFile?file=${file}`;
 
     const response = await fetch(uri, {
+        //mode:'no-cors',
         method: 'POST',
         body: formData
 
@@ -74,11 +73,16 @@ async function getFilesResult() {
     filesToSha256(fileToScan).then(hash => {
         const hashed = hash;
         console.log(hashed); 
-        fetch(`http://localhost:5090/File/GetFileResults?encodedFileSha256=${hashed}`)
+        fetch(`http://localhost:5090/File/GetFileResults?encodedFileSha256=${hashed}`, {
+            //mode: 'no-cors'
+        })
+
             .then(response => {
+                console.log(response.json);
                 return response.json();
             })
             .catch(error => {
+                console.log(error);
                 console.error(error);
             })
             .then(data => {
