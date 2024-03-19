@@ -84,6 +84,7 @@ async function getFilesResult() {
                 console.error(error);
             })
             .then(data => {
+                showFileResults(data);
                 console.log(data);
             })
             .catch(error => {
@@ -118,7 +119,34 @@ function showLinkResults(data) {
     console.log(lastAnalysisStats);
 
 
-    var placeOfResults = document.getElementById("result");
+    var placeOfResults = document.getElementById("linkResult");
+    placeOfResults.innerHTML += "<h5> Scanning Results </h5>"
+    placeOfResults.innerHTML += "<ul>";
+
+    for (var item in lastAnalysisStats) {
+        placeOfResults.innerHTML += "<li>" + item + ": " + lastAnalysisStats[item] + "</li>";
+    }
+    placeOfResults.innerHTML += "</ul>";
+
+
+    if (lastAnalysisStats.suspicious > 0 || lastAnalysisStats.malicious > 0) {
+        console.log("danger");
+    }
+    else {
+        console.log("ok");
+    }
+}
+
+function showFileResults(data) {
+    console.log(data);
+    const lastAnalysisResults = data.data.attributes.last_analysis_results;
+    console.log(typeof (lastAnalysisResults));
+    const lastAnalysisStats = data.data.attributes.last_analysis_stats;
+    console.log(lastAnalysisStats);
+
+
+    var placeOfResults = document.getElementById("fileResult");
+    placeOfResults.innerHTML += "<h5> Scanning Results </h5>"
     placeOfResults.innerHTML += "<ul>";
 
     for (var item in lastAnalysisStats) {
