@@ -1,5 +1,4 @@
 
-
 const SendLinkuri = "http://localhost:5090/Link/SendLink?link=";
 async function sendLink() {
 
@@ -7,6 +6,8 @@ async function sendLink() {
     const uri = `http://localhost:5090/Link/SendLink?link=${link}`;
     console.log(link);
     console.log(uri);
+    let placeOfResults = document.getElementById("linkResult");
+    placeOfResults.innerHTML = '<div class="spinner" id="spinner"></div>';
     const response = await fetch(uri, {
         //mode:'no-cors',
         method: 'POST',
@@ -17,9 +18,11 @@ async function sendLink() {
             link: link
         })
     });
+    
     console.log(response.status);
     if (response.ok) {
         getLinkResult(link);
+        
     } else {
         console.error('Error sending link');
     }
@@ -27,9 +30,12 @@ async function sendLink() {
 
 async function getLinkResult(link) {
     console.log("grdi");
+    const spinner = document.getElementById("spinner");
+    spinner.style.display = "block";
     const response = await fetch(`http://localhost:5090/Link/GetLinkResult?link=${encodeURIComponent(link)}`,{
         //mode: 'no-cors'
     });
+    spinner.style.display = "none";
     console.log(response.status);
     if (response.ok) {
         
@@ -47,6 +53,7 @@ async function getLinkResult(link) {
 }
 
 async function uploadFile() {
+
     console.log("file sent");
     const file = document.getElementById("fileInput").files[0];
     const formData = new FormData();
@@ -111,7 +118,7 @@ function filesToSha256(file) {
     });
 }
 
-function showLinkResults(data) {
+async function showLinkResults(data) {
     console.log(data);
     const lastAnalysisResults = data.data.attributes.last_analysis_results;
     console.log(typeof (lastAnalysisResults));
@@ -119,7 +126,8 @@ function showLinkResults(data) {
     console.log(lastAnalysisStats);
 
 
-    var placeOfResults = document.getElementById("linkResult");
+    let placeOfResults = document.getElementById("linkResult");
+    placeOfResults.innerHTML = '<div class="spinner" id="spinner"></div>';
     placeOfResults.innerHTML += "<h5> Scanning Results </h5>"
     placeOfResults.innerHTML += "<ul>";
 
@@ -128,7 +136,7 @@ function showLinkResults(data) {
     }
     placeOfResults.innerHTML += "</ul>";
 
-
+    
     if (lastAnalysisStats.suspicious > 0 || lastAnalysisStats.malicious > 0) {
         console.log("danger");
     }
@@ -146,6 +154,7 @@ function showFileResults(data) {
 
 
     var placeOfResults = document.getElementById("fileResult");
+    placeOfResults.innerHTML = "";
     placeOfResults.innerHTML += "<h5> Scanning Results </h5>"
     placeOfResults.innerHTML += "<ul>";
 
@@ -162,5 +171,7 @@ function showFileResults(data) {
         console.log("ok");
     }
 }
-
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}
 
