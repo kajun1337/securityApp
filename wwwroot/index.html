@@ -5,50 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Scanner</title>
     <link rel="stylesheet" href="css/style.css">
-    
+
 </head>
-    
+
 <body>
 
     <div class="container">
-        <div class="drag-drop-container">
-            <div class="file-drop-area" id="drop-zone" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)" ondragleave="dragLeaveHandler(event)">
+        <div class="file-container">
+            <div class="drag-drop-container">
+                <div class="file-drop-area" id="drop-zone" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)" ondragleave="dragLeaveHandler(event)">
 
-                <input class="file-input" id="fileInput" type="file" onchange="fileInputChangeHandler(event)" style="display:none">
-                <div id="file-name-display">Upload Your File</div>
+                    <input class="file-input" id="fileInput" type="file" onchange="fileInputChangeHandler(event)" style="display:none">
+                    <div id="file-name-display">Upload Your File</div>
+                </div>
             </div>
-            <button class="scan-file" onclick="uploadFile()" style="cursor:pointer;">Scan File</button>
             <div id="fileResult"></div>
         </div>
-    
-
+        <button class="scan-file" onclick="uploadFile()" style="cursor:pointer;">Scan File</button>
 
         <div class="link-container">
-            <input type="text" id="linkInput" placeholder="Enter URL">
-            <button class="scan-link" onclick="sendLink()">Scan Link</button>
+            <div class="input-container">
+                <input type="text" id="linkInput" placeholder="Enter URL">
+                <button class="scan-link" onclick="sendLink()">Scan Link</button>
+            </div>
             <div id="linkResult"></div>
         </div>
     </div>
 
     <script src="js/site.js?2"></script>
     <script src="js/dragAndDrop.js"></script>
-
-    <!--
-
-
-    <div class="file-container">
-        <input type="file" id="fileInput" style="display: none;">
-        <label for="fileInput" class="custom-file-upload">Select File</label>
-        <button class="scan-file" onclick="uploadFile()" style="cursor:pointer;">Scan File</button>
-    </div>
-
-    <div class="link-container">
-        <input type="text" id="linkInput" placeholder="Enter URL">
-        <button onclick="sendLink()">Scan Link</button>
-        <div id="result"></div>
-    </div>
-
-        -->
 </body>
 
 </html>

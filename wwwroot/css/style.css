@@ -1,65 +1,70 @@
-﻿html, body {
-    height: 100%;
-}
-
-body {
-    font-family: sans-serif;
-}
-
-.container {
-    width: auto;
-    height: 100%;
-    padding: 0;
-    margin: 0;
+﻿.container {
     display: flex;
+    align-items: center;
     flex-direction: column;
+}
+
+.file-container {
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-around;
 }
 
-.file-drop-area{
-    height: 300px;
-    width: 300px;
+.file-drop-area {
+    height: 250px;
+    width: 250px;
     border: 3px dashed blue;
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     justify-content: space-around;
-    align-items:center;
-    margin-bottom: 40px;
-
+    align-items: center;
+    margin-bottom: 20px;
+    margin-right: 20px;
 }
 
-.drag-drop-container{
-    display:flex;
-    flex-direction:column;
-    justify-content:space-around;
-    align-items:center;
-}
-
-.scan-file{
-    background-color: darkblue;
-    justify-self: center;
-    margin-left: 100px;
-    margin-right: 100px;
-    border-radius: 20px;
-    color:aqua;
-    padding: 6px;
-
-}
 #drop-zone.drag-over {
     background-color: #f0f0f0;
     border-color: #999;
 }
 
 .file-input {
-    border: 0;
-    padding: 0;
-    margin: 0;
     background: transparent;
     font: 13px sans-serif
 }
 
+#fileResult {
+    margin-bottom: 20px;
+    height: 250px;
+    width: 250px;
+    border: 3px dashed blue;
+}
+
+.scan-file {
+    background-color: darkblue;
+    margin-bottom: 100px;
+    border-radius: 20px;
+    color: aqua;
+    padding: 6px;
+    justify-self: center;
+    align-self: center;
+}
+
+.link-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
 .scan-link {
+    margin-left: 3px;
     background-color: darkblue;
     border-radius: 20px;
     color: aqua;
@@ -67,6 +72,9 @@ body {
     cursor: pointer;
 }
 
-
-
-
+#linkResult {
+    height: 250px;
+    width: 250px;
+    border: 3px dashed blue;
+    justify-self: flex-end;
+}
