@@ -43,7 +43,7 @@ namespace securityApp.Controllers
 
             if(response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                await Task.Delay(1000);
+                await Task.Delay(3000);
                 return await GetLinkResult(link);
             }
             else
@@ -52,11 +52,11 @@ namespace securityApp.Controllers
                 var lastAnalysisResult = result["data"]["attributes"]["last_analysis_results"];
                 if (lastAnalysisResult.ToString() == "{}")
                 {
-                    await Task.Delay(1000);
+                    await Task.Delay(3000);
                     return await GetLinkResult(link);
                 }
             }
-
+            Console.WriteLine(response.Content);
             return Ok(response.Content);
         }
     }

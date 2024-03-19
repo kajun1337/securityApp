@@ -32,18 +32,16 @@ async function getLinkResult(link) {
     });
     console.log(response.status);
     if (response.ok) {
-        ;
+        
         const data = await response.json();
-        console.log(data);
-        const lastAnalysisResults = data.data.attributes.last_analysis_results;
-        console.log(typeof(lastAnalysisResults));
-
-        document.getElementById("result").innerText = lastAnalysisResults[0];
+        showLinkResults(data);
         
 
-    } else if (response.status === 404) {
+    }
+    else if (response.status === 404) {
         document.getElementById("result").innerText = "Link not found";
-    } else {
+    }
+    else {
         console.error('Error getting link result');
     }
 }
@@ -110,6 +108,31 @@ function filesToSha256(file) {
 
         reader.readAsArrayBuffer(file);
     });
+}
+
+function showLinkResults(data) {
+    console.log(data);
+    const lastAnalysisResults = data.data.attributes.last_analysis_results;
+    console.log(typeof (lastAnalysisResults));
+    const lastAnalysisStats = data.data.attributes.last_analysis_stats;
+    console.log(lastAnalysisStats);
+
+
+    var placeOfResults = document.getElementById("result");
+    placeOfResults.innerHTML += "<ul>";
+
+    for (var item in lastAnalysisStats) {
+        placeOfResults.innerHTML += "<li>" + item + ": " + lastAnalysisStats[item] + "</li>";
+    }
+    placeOfResults.innerHTML += "</ul>";
+
+
+    if (lastAnalysisStats.suspicious > 0 || lastAnalysisStats.malicious > 0) {
+        console.log("danger");
+    }
+    else {
+        console.log("ok");
+    }
 }
 
 
