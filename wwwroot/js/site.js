@@ -59,7 +59,8 @@ async function uploadFile() {
     const formData = new FormData();
     formData.append('file', file);
     const uri = `http://localhost:5090/File/UploadFile?file=${file}`;
-
+    let placeOfResults = document.getElementById("fileResult");
+    placeOfResults.innerHTML = '<div class="spinner" id="spinner"></div>';
     const response = await fetch(uri, {
         //mode:'no-cors',
         method: 'POST',
@@ -75,6 +76,8 @@ async function uploadFile() {
 async function getFilesResult() {
     const fileToScan = document.getElementById("fileInput").files[0];
     console.log(fileToScan);
+    const spinner = document.getElementById("spinner");
+    spinner.style.display = "block";
     filesToSha256(fileToScan).then(hash => {
         const hashed = hash;
         console.log(hashed); 
@@ -126,7 +129,7 @@ async function showLinkResults(data) {
     console.log(lastAnalysisStats);
 
 
-    let placeOfResults = document.getElementById("linkResult");
+    let placeOfResults = document.getElementById("fileResult");
     placeOfResults.innerHTML = '<div class="spinner" id="spinner"></div>';
     placeOfResults.innerHTML += "<h5> Scanning Results </h5>"
     placeOfResults.innerHTML += "<ul>";
@@ -153,8 +156,8 @@ function showFileResults(data) {
     console.log(lastAnalysisStats);
 
 
-    var placeOfResults = document.getElementById("fileResult");
-    placeOfResults.innerHTML = "";
+    let placeOfResults = document.getElementById("fileResult");
+    placeOfResults.innerHTML = '<div class="spinner" id="spinner"></div>';
     placeOfResults.innerHTML += "<h5> Scanning Results </h5>"
     placeOfResults.innerHTML += "<ul>";
 
