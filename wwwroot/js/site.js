@@ -1,13 +1,12 @@
 
 const SendLinkuri = "http://localhost:5090/Link/SendLink?link=";
 async function sendLink() {
-
+    startLinkSpinnerAnimation();
     const link = document.getElementById("linkInput").value;
     const uri = `http://localhost:5090/Link/SendLink?link=${link}`;
     console.log(link);
     console.log(uri);
-    let placeOfResults = document.getElementById("linkResult");
-    placeOfResults.innerHTML = '<div class="spinner" id="spinner"></div>';
+
     const response = await fetch(uri, {
         //mode:'no-cors',
         method: 'POST',
@@ -21,6 +20,7 @@ async function sendLink() {
     
     console.log(response.status);
     if (response.ok) {
+        
         getLinkResult(link);
         
     } else {
@@ -30,19 +30,16 @@ async function sendLink() {
 
 async function getLinkResult(link) {
     console.log("grdi");
-    const spinner = document.getElementById("spinner");
-    spinner.style.display = "block";
     const response = await fetch(`http://localhost:5090/Link/GetLinkResult?link=${encodeURIComponent(link)}`,{
         //mode: 'no-cors'
     });
-    spinner.style.display = "none";
     console.log(response.status);
     if (response.ok) {
         
         const data = await response.json();
+        stopLinkSpinnerAnimation();
         showLinkResults(data);
         
-
     }
     else if (response.status === 404) {
         document.getElementById("result").innerText = "Link not found";
@@ -53,14 +50,12 @@ async function getLinkResult(link) {
 }
 
 async function uploadFile() {
-
+    startFileSpinnerAnimation();
     console.log("file sent");
     const file = document.getElementById("fileInput").files[0];
     const formData = new FormData();
     formData.append('file', file);
     const uri = `http://localhost:5090/File/UploadFile?file=${file}`;
-    let placeOfResults = document.getElementById("fileResult");
-    placeOfResults.innerHTML = '<div class="spinner" id="spinner"></div>';
     const response = await fetch(uri, {
         //mode:'no-cors',
         method: 'POST',
@@ -76,8 +71,6 @@ async function uploadFile() {
 async function getFilesResult() {
     const fileToScan = document.getElementById("fileInput").files[0];
     console.log(fileToScan);
-    const spinner = document.getElementById("spinner");
-    spinner.style.display = "block";
     filesToSha256(fileToScan).then(hash => {
         const hashed = hash;
         console.log(hashed); 
@@ -94,6 +87,7 @@ async function getFilesResult() {
                 console.error(error);
             })
             .then(data => {
+                stopFileSpinnerAnimation();
                 showFileResults(data);
                 console.log(data);
             })
@@ -129,8 +123,8 @@ async function showLinkResults(data) {
     console.log(lastAnalysisStats);
 
 
-    let placeOfResults = document.getElementById("fileResult");
-    placeOfResults.innerHTML = '<div class="spinner" id="spinner"></div>';
+    let placeOfResults = document.getElementById("linkResult");
+    placeOfResults.innerHTML = "";
     placeOfResults.innerHTML += "<h5> Scanning Results </h5>"
     placeOfResults.innerHTML += "<ul>";
 
@@ -157,7 +151,7 @@ function showFileResults(data) {
 
 
     let placeOfResults = document.getElementById("fileResult");
-    placeOfResults.innerHTML = '<div class="spinner" id="spinner"></div>';
+    placeOfResults.innerHTML = "";
     placeOfResults.innerHTML += "<h5> Scanning Results </h5>"
     placeOfResults.innerHTML += "<ul>";
 
