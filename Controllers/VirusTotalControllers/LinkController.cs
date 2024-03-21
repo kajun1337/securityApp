@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 using securityApp.Helper;
-using securityApp.Interfaces;
 using securityApp.Repositories;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using securityApp.Interfaces.VirusTotalInterfaces;
 
 
-namespace securityApp.Controllers
+namespace securityApp.Controllers.VirusTotalControllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -41,7 +41,7 @@ namespace securityApp.Controllers
             var encodedUrl = _encoder.EncodeUrlToBase64(link);
             var response = await _linkRepository.GetUrlScanResultAsync(encodedUrl);
 
-            if(response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
                 await Task.Delay(3000);
                 return await GetLinkResult(link);
@@ -58,7 +58,7 @@ namespace securityApp.Controllers
             }
             Console.WriteLine(response.Content);
             return Ok(response.Content);
-            
+
         }
     }
 }

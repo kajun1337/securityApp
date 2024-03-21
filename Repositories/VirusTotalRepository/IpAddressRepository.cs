@@ -1,10 +1,10 @@
 ﻿using RestSharp;
 using securityApp.Helper;
-using securityApp.Interfaces;
+using securityApp.Interfaces.VirusTotalInterfaces;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace securityApp.Repositories
+namespace securityApp.Repositories.VirusTotalRepository
 {
     public class IpAddressRepository : IIpAddressRepository
     {

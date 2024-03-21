@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
 using RestSharp;
 using securityApp.Helper;
-using securityApp.Interfaces;
+using securityApp.Interfaces.VirusTotalInterfaces;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace securityApp.Repositories
+namespace securityApp.Repositories.VirusTotalRepository
 {
     public class FileRepository : IFileRepository
     {
@@ -13,7 +13,7 @@ namespace securityApp.Repositories
         private const string filesLink = "https://www.virustotal.com/api/v3/files/";
         private const string folderName = "FilesToUpload";
         private readonly string folderPath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-        
+
         private readonly VirusTotalSettings _totalSettings;
         private readonly Encoder _encoder;
 
@@ -35,7 +35,7 @@ namespace securityApp.Repositories
             var response = await client.GetAsync(request);
 
             Console.WriteLine("{0}", response.Content);
-            if(response.StatusCode == System.Net.HttpStatusCode.NotFound )
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
                 Console.WriteLine(response.Content);
                 await Task.Delay(6000);
@@ -60,25 +60,25 @@ namespace securityApp.Repositories
         {
 
             var filePath = Path.Combine(folderPath, file.FileName);
-            
+
             Console.WriteLine(filePath);
             using (var fileContentStream = new MemoryStream())
             {
                 await file.CopyToAsync(fileContentStream);
-                await System.IO.File.WriteAllBytesAsync(Path.Combine(folderPath, file.FileName),
+                await File.WriteAllBytesAsync(Path.Combine(folderPath, file.FileName),
                     fileContentStream.ToArray());
             }
 
             var options = new RestClientOptions(_totalSettings.FileLink);
             var client = new RestClient(options);
             var request = new RestRequest("");
-            
+
             request.AlwaysMultipartFormData = true;
             request.AddHeader("accept", "application/json");
             request.AddHeader("x-apikey", _totalSettings.ApiKey);
             request.FormBoundary = "---011000010111000001101001";
-            
-            request.AddFile("file", filePath ,file.ContentType);
+
+            request.AddFile("file", filePath, file.ContentType);
             var response = await client.PostAsync(request);
             Console.WriteLine("{0}", response.Content);
             return response;

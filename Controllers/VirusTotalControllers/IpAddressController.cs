@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using securityApp.Interfaces;
+using securityApp.Interfaces.VirusTotalInterfaces;
 using System.Net;
 
-namespace securityApp.Controllers
+namespace securityApp.Controllers.VirusTotalControllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -19,7 +19,7 @@ namespace securityApp.Controllers
         {
             Console.WriteLine(ipAddress);
             Console.WriteLine(_ipAddressRepository.isIpValid(ipAddress));
-            if(!_ipAddressRepository.isIpValid(ipAddress))
+            if (!_ipAddressRepository.isIpValid(ipAddress))
             {
                 return BadRequest();
             }

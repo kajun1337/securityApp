@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using securityApp.Helper;
-using securityApp.Interfaces;
+using securityApp.Interfaces.VirusTotalInterfaces;
 using System.Data;
 
 
-namespace securityApp.Controllers
+namespace securityApp.Controllers.VirusTotalControllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -36,10 +36,10 @@ namespace securityApp.Controllers
         [Route("GetFileResults")]
         public async Task<IActionResult> GetResultsOfFile(string encodedFileSha256)
         {
-            
+
             var response = await _fileRepository.GetFileResult(encodedFileSha256);
             Console.WriteLine(response.Content);
-            
+
             return Ok(response.Content);
         }
 

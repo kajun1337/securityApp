@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestSharp;
-using securityApp.Interfaces;
 using securityApp.Helper;
+using securityApp.Interfaces.VirusTotalInterfaces;
 
-namespace securityApp.Repositories
+namespace securityApp.Repositories.VirusTotalRepository
 {
     public class LinkRepository : ILinkRepository
     {
-        private  readonly VirusTotalSettings _totalSettings;
+        private readonly VirusTotalSettings _totalSettings;
         public LinkRepository(VirusTotalSettings virusTotalSettings)
         {
             _totalSettings = virusTotalSettings;

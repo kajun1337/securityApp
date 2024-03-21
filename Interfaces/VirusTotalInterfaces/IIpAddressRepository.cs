@@ -1,6 +1,6 @@
 ﻿using RestSharp;
 
-namespace securityApp.Interfaces
+namespace securityApp.Interfaces.VirusTotalInterfaces
 {
     public interface IIpAddressRepository
     {
