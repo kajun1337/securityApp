@@ -91,8 +91,27 @@
     width: 200px;
     border: 3px dashed blue;
 }
-
+.ip-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.ip-input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.scan-Ip {
+    margin-left: 3px;
+    background-color: darkblue;
+    border-radius: 20px;
+    color: aqua;
+    padding: 5px;
+    cursor: pointer;
+}
 #ipResult {
+    padding-left: 75px;
     height: 200px;
     width: 200px;
     border: 3px dashed blue;

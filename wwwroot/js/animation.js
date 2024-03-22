@@ -27,3 +27,16 @@ function stopLinkSpinnerAnimation() {
     let placeOfResult = document.getElementById("linkResult");
     placeOfResult.innerHTML = "";
 }
+
+function startIpSpinnerAnimation() {
+    let placeOfResult = document.getElementById("ipResult");
+    placeOfResult.innerHTML = '<div id="ipSpinner" class="ipSpinner"></div>';
+    let spinner = document.getElementById("ipSpinner");
+    spinner.style.display = "block";
+}
+function stopIpSpinnerAnimation() {
+    let spinner = document.getElementById("ipSpinner");
+    spinner.style.display = "none";
+    let placeOfResult = document.getElementById("ipResult");
+    placeOfResult.innerHTML = "";
+}
