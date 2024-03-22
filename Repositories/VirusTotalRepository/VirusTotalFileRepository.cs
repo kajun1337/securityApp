@@ -7,20 +7,21 @@ using System.Runtime.CompilerServices;
 
 namespace securityApp.Repositories.VirusTotalRepository
 {
-    public class FileRepository : IFileRepository
+    public class VirusTotalFileRepository : IVirusTotalFileRepository
     {
         private bool isMyFileReady = false;
         private const string filesLink = "https://www.virustotal.com/api/v3/files/";
-        private const string folderName = "FilesToUpload";
-        private readonly string folderPath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+        
 
         private readonly VirusTotalSettings _totalSettings;
         private readonly Encoder _encoder;
+        private readonly FileHandler _fileHandler;
 
-        public FileRepository(VirusTotalSettings virusTotalSettings, Encoder encoder)
+        public VirusTotalFileRepository(VirusTotalSettings virusTotalSettings, Encoder encoder, FileHandler fileHandler)
         {
             _totalSettings = virusTotalSettings;
             _encoder = encoder;
+            _fileHandler = fileHandler;
         }
         public async Task<RestResponse> GetFileResult(string fileSHA)
         {
@@ -59,16 +60,11 @@ namespace securityApp.Repositories.VirusTotalRepository
         public async Task<RestResponse> UploadFile(IFormFile file)
         {
 
-            var filePath = Path.Combine(folderPath, file.FileName);
+            var filePath = Path.Combine(_fileHandler.folderPath, file.FileName);
+            _fileHandler.CreateFile(file);
 
             Console.WriteLine(filePath);
-            using (var fileContentStream = new MemoryStream())
-            {
-                await file.CopyToAsync(fileContentStream);
-                await File.WriteAllBytesAsync(Path.Combine(folderPath, file.FileName),
-                    fileContentStream.ToArray());
-            }
-
+           
             var options = new RestClientOptions(_totalSettings.FileLink);
             var client = new RestClient(options);
             var request = new RestRequest("");

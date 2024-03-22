@@ -6,10 +6,10 @@ using System.Text.RegularExpressions;
 
 namespace securityApp.Repositories.VirusTotalRepository
 {
-    public class IpAddressRepository : IIpAddressRepository
+    public class VirusTotalIpAddressRepository : IVirusTotalIpAddressRepository
     {
         private readonly VirusTotalSettings _virusTotalSettings;
-        public IpAddressRepository(VirusTotalSettings virusTotalSettings)
+        public VirusTotalIpAddressRepository(VirusTotalSettings virusTotalSettings)
         {
             _virusTotalSettings = virusTotalSettings;
 

@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using securityApp.Helper;
 using securityApp.Interfaces.VirusTotalInterfaces;
 
 namespace securityApp.Repositories.VirusTotalRepository
 {
-    public class LinkRepository : ILinkRepository
+    public class VirusTotalLinkRepository : IVirusTotalLinkRepository
     {
         private readonly VirusTotalSettings _totalSettings;
-        public LinkRepository(VirusTotalSettings virusTotalSettings)
+        public VirusTotalLinkRepository(VirusTotalSettings virusTotalSettings)
         {
             _totalSettings = virusTotalSettings;
         }
@@ -21,6 +22,23 @@ namespace securityApp.Repositories.VirusTotalRepository
             request.AddHeader("accept", "application/json");
             request.AddHeader("x-apikey", _totalSettings.ApiKey);
             var response = await client.GetAsync(request);
+            
+            if(response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                await Task.Delay(3000);
+                return await GetUrlScanResultAsync(encodedUrl);
+            }
+            else
+            {
+                JObject result = JObject.Parse(response.Content);
+                var lastAnalysisResult = result["data"]["attributes"]["last_analysis_results"];
+                if (lastAnalysisResult.ToString() == "{}")
+                {
+                    await Task.Delay(3000);
+                    return await GetUrlScanResultAsync(encodedUrl);
+                }
+            }
+
             //Console.WriteLine(response.Content);
             return response;
         }

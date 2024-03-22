@@ -2,20 +2,20 @@
 using securityApp.Interfaces.VirusTotalInterfaces;
 using System.Net;
 
-namespace securityApp.Controllers.VirusTotalControllers
+namespace securityApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class IpAddressController : Controller
     {
-        private readonly IIpAddressRepository _ipAddressRepository;
-        public IpAddressController(IIpAddressRepository ipAddressRepository)
+        private readonly IVirusTotalIpAddressRepository _ipAddressRepository;
+        public IpAddressController(IVirusTotalIpAddressRepository ipAddressRepository)
         {
             _ipAddressRepository = ipAddressRepository;
         }
         [HttpGet]
         [Route("getIpAddressResult")]
-        public async Task<IActionResult> GetIpAddressResul(string ipAddress)
+        public async Task<IActionResult> GetIpAddressResult(string ipAddress)
         {
             Console.WriteLine(ipAddress);
             Console.WriteLine(_ipAddressRepository.isIpValid(ipAddress));

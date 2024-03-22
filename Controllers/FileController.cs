@@ -4,7 +4,7 @@ using securityApp.Interfaces.VirusTotalInterfaces;
 using System.Data;
 
 
-namespace securityApp.Controllers.VirusTotalControllers
+namespace securityApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -13,10 +13,10 @@ namespace securityApp.Controllers.VirusTotalControllers
         private const string folderName = "FilesToUpload";
         private readonly string folderPath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
-        private readonly IFileRepository _fileRepository;
+        private readonly IVirusTotalFileRepository _fileRepository;
         private readonly Encoder _encoder;
         private readonly VirusTotalSettings _virusTotalSettings;
-        public FileController(IFileRepository fileRepository, Encoder encoder, VirusTotalSettings virusTotalSettings)
+        public FileController(IVirusTotalFileRepository fileRepository, Encoder encoder, VirusTotalSettings virusTotalSettings)
         {
             _encoder = encoder;
             _fileRepository = fileRepository;

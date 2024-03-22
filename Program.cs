@@ -8,11 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<ILinkRepository, LinkRepository>();
-builder.Services.AddScoped<IFileRepository, FileRepository>();
-builder.Services.AddScoped<IIpAddressRepository, IpAddressRepository>();
+builder.Services.AddScoped<IVirusTotalLinkRepository, VirusTotalLinkRepository>();
+builder.Services.AddScoped<IVirusTotalFileRepository, VirusTotalFileRepository>();
+builder.Services.AddScoped<IVirusTotalIpAddressRepository, VirusTotalIpAddressRepository>();
 builder.Services.AddSingleton<VirusTotalSettings>();
 builder.Services.AddSingleton<Encoder>();
+builder.Services.AddSingleton<FileHandler>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

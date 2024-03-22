@@ -7,18 +7,18 @@ using Newtonsoft.Json.Linq;
 using securityApp.Interfaces.VirusTotalInterfaces;
 
 
-namespace securityApp.Controllers.VirusTotalControllers
+namespace securityApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class LinkController : Controller
     {
         private VirusTotalSettings _totalSettings;
-        private readonly ILinkRepository _linkRepository;
+        private readonly IVirusTotalLinkRepository _linkRepository;
         private readonly Encoder _encoder;
 
 
-        public LinkController(VirusTotalSettings virusTotalSettings, ILinkRepository linkRepository, Encoder encoder)
+        public LinkController(VirusTotalSettings virusTotalSettings, IVirusTotalLinkRepository linkRepository, Encoder encoder)
         {
             _totalSettings = virusTotalSettings;
             _linkRepository = linkRepository;
@@ -40,22 +40,6 @@ namespace securityApp.Controllers.VirusTotalControllers
         {
             var encodedUrl = _encoder.EncodeUrlToBase64(link);
             var response = await _linkRepository.GetUrlScanResultAsync(encodedUrl);
-
-            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-            {
-                await Task.Delay(3000);
-                return await GetLinkResult(link);
-            }
-            else
-            {
-                JObject result = JObject.Parse(response.Content);
-                var lastAnalysisResult = result["data"]["attributes"]["last_analysis_results"];
-                if (lastAnalysisResult.ToString() == "{}")
-                {
-                    await Task.Delay(3000);
-                    return await GetLinkResult(link);
-                }
-            }
             Console.WriteLine(response.Content);
             return Ok(response.Content);
 

@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <Folder Include="FilesToUpload\" />
+    <Folder Include="Interfaces\AbuseIpDbInterfaces\" />
+    <Folder Include="Repositories\AbuseIpDbRepository\" />
   </ItemGroup>
 
 </Project>

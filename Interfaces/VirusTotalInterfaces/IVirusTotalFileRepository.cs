@@ -2,7 +2,7 @@
 
 namespace securityApp.Interfaces.VirusTotalInterfaces
 {
-    public interface IFileRepository
+    public interface IVirusTotalFileRepository
     {
         Task<RestResponse> UploadFile(IFormFile file);
         Task<RestResponse> GetFileResult(string fileSHA);

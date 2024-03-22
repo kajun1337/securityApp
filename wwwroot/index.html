@@ -25,15 +25,28 @@
         </div>
         <button class="scan-file" onclick="uploadFile()" style="cursor:pointer;">Scan File</button>
 
-        <div class="link-container">
-            <div class="input-container">
-                <input type="text" id="linkInput" placeholder="Enter URL">
-                <button class="scan-link" onclick="sendLink()">Scan Link</button>
+        <div class="ip-and-link-container">
+            <div class="link-container">
+                <div class="link-input-container">
+                    <input type="text" id="linkInput" placeholder="Enter URL">
+                    <button class="scan-link" onclick="sendLink()">Scan Link</button>
+                </div>
+                <div id="linkResult">
+
+                </div>
+
             </div>
-            <div id="linkResult">
-                
+            <div class="ip-container">
+                <div class="ip-input-container">
+                    <input type="text" id="ipInput" placeholder="Enter IP" />
+                    <button class="scan-Ip" onclick="sendIp">Scan IP</button>
+                </div>
+                <div id="ipResult">
+
+                </div>
             </div>
         </div>
+
     </div>
 
     <script src="js/site.js?2"></script>
