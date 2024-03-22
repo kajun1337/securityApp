@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using RestSharp;
+using securityApp.Helper;
+using securityApp.Interfaces.AbuseIpDbInterfaces;
 using securityApp.Interfaces.VirusTotalInterfaces;
 using System.Net;
 
@@ -8,22 +12,41 @@ namespace securityApp.Controllers
     [Route("[controller]")]
     public class IpAddressController : Controller
     {
-        private readonly IVirusTotalIpAddressRepository _ipAddressRepository;
-        public IpAddressController(IVirusTotalIpAddressRepository ipAddressRepository)
+        private readonly IVirusTotalIpAddressRepository _virusTotalIpAddressRepository;
+        private readonly IAbuseIpDbIpRepository _abuseIpDbIpRepository;
+        public IpAddressController(IVirusTotalIpAddressRepository ipAddressRepository, IAbuseIpDbIpRepository abuseIpDbIpRepository)
         {
-            _ipAddressRepository = ipAddressRepository;
+            _virusTotalIpAddressRepository = ipAddressRepository;
+            _abuseIpDbIpRepository = abuseIpDbIpRepository;
+            
         }
         [HttpGet]
-        [Route("getIpAddressResult")]
-        public async Task<IActionResult> GetIpAddressResult(string ipAddress)
+        [Route("getVirusTotalIpAddressResult")]
+        public async Task<IActionResult> GetVirusTotalIpAddressResult(string ipAddress)
         {
             Console.WriteLine(ipAddress);
-            Console.WriteLine(_ipAddressRepository.isIpValid(ipAddress));
-            if (!_ipAddressRepository.isIpValid(ipAddress))
+            Console.WriteLine(_virusTotalIpAddressRepository.isIpValid(ipAddress));
+            if (!_virusTotalIpAddressRepository.isIpValid(ipAddress))
             {
                 return BadRequest();
             }
-            var response = await _ipAddressRepository.GetIpAddressResults(ipAddress);
+            var response = await _virusTotalIpAddressRepository.GetIpAddressResults(ipAddress);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getIpDbIpAddressResult")]
+
+        public async Task<IActionResult> getIpDbIpAddressResult(string ipAddress)
+        {
+            if (!_virusTotalIpAddressRepository.isIpValid(ipAddress))
+            {
+                
+                return BadRequest();
+            }
+
+            var response = await _abuseIpDbIpRepository.GetAbuseIpDbIpResults(ipAddress);
+
             return Ok(response);
         }
     }

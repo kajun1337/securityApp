@@ -1,5 +1,7 @@
 using securityApp.Helper;
+using securityApp.Interfaces.AbuseIpDbInterfaces;
 using securityApp.Interfaces.VirusTotalInterfaces;
+using securityApp.Repositories.AbuseIpDbRepository;
 using securityApp.Repositories.VirusTotalRepository;
 
 var SpecificOrigins = "AllowSpecificOrigin";
@@ -11,9 +13,11 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IVirusTotalLinkRepository, VirusTotalLinkRepository>();
 builder.Services.AddScoped<IVirusTotalFileRepository, VirusTotalFileRepository>();
 builder.Services.AddScoped<IVirusTotalIpAddressRepository, VirusTotalIpAddressRepository>();
+builder.Services.AddScoped<IAbuseIpDbIpRepository, AbuseIpDbIpRepository>();
 builder.Services.AddSingleton<VirusTotalSettings>();
 builder.Services.AddSingleton<Encoder>();
 builder.Services.AddSingleton<FileHandler>();
+builder.Services.AddSingleton<AbuseIpDbSettings>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
