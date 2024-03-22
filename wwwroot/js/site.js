@@ -24,7 +24,9 @@ async function sendLink() {
         getLinkResult(link);
         
     } else {
-        console.error('Error sending link');
+        stopLinkSpinnerAnimation();
+        console.error("errrokee");
+        document.getElementById("linkResult").innerText = "something went wrong";
     }
 }
 
@@ -43,10 +45,12 @@ async function getLinkResult(link) {
         
     }
     else if (response.status === 404) {
-        document.getElementById("result").innerText = "Link not found";
+        stopLinkSpinnerAnimation();
+        document.getElementById("linkResult").innerText = "Link not found";
     }
     else {
-        console.error('Error getting link result');
+        stopLinkSpinnerAnimation();
+        document.getElementById("linkResult").innerText = "something went wrong";
     }
 }
 
@@ -63,9 +67,14 @@ async function uploadFile() {
         body: formData
 
     });
-    
-    let result = getFilesResult();
-    console.log(result.json);
+    if (response.ok) {
+        stopFileSpinnerAnimation();
+        getFilesResult();
+    }
+    else {
+        stopFileSpinnerAnimation();
+    }
+
     
 
 }

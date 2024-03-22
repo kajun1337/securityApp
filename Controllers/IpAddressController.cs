@@ -45,7 +45,7 @@ namespace securityApp.Controllers
             }
 
             var response = await _abuseIpDbIpRepository.GetAbuseIpDbIpResults(ipAddress);
-
+            Console.WriteLine(response.Content);
             return Ok(response.Content);
         }
     }

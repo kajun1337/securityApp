@@ -13,12 +13,17 @@ async function getIpAddressResult() {
         //mode:'no-cors',
     });
 
-    console.log(response.status);
-    const data = await response.json();
+    if (response.ok) {
+        const data = await response.json();
 
-    console.log(data);
-    stopIpSpinnerAnimation();
-    showIpAddressResult(data);
+        console.log(data);
+        stopIpSpinnerAnimation();
+        showIpAddressResult(data);
+    }
+    else {
+        stopIpSpinnerAnimation();
+        console.log(response.status);
+    }
 }
 
 function showIpAddressResult(data) {
