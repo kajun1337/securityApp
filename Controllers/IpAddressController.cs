@@ -31,7 +31,7 @@ namespace securityApp.Controllers
                 return BadRequest();
             }
             var response = await _virusTotalIpAddressRepository.GetIpAddressResults(ipAddress);
-            return Ok(response);
+            return Ok(response.Content);
         }
 
         [HttpGet]
@@ -40,14 +40,13 @@ namespace securityApp.Controllers
         public async Task<IActionResult> getIpDbIpAddressResult(string ipAddress)
         {
             if (!_virusTotalIpAddressRepository.isIpValid(ipAddress))
-            {
-                
+            {            
                 return BadRequest();
             }
 
             var response = await _abuseIpDbIpRepository.GetAbuseIpDbIpResults(ipAddress);
 
-            return Ok(response);
+            return Ok(response.Content);
         }
     }
 }

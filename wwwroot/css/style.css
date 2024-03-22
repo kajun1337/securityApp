@@ -57,6 +57,7 @@
 }
 
 .ip-and-link-container {
+    width: 600px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;

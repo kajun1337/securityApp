@@ -37,6 +37,7 @@ async function getLinkResult(link) {
     if (response.ok) {
         
         const data = await response.json();
+        console.log(data);
         stopLinkSpinnerAnimation();
         showLinkResults(data);
         
