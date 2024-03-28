@@ -5,16 +5,22 @@
 async function getIpAddressResult() {
     startIpSpinnerAnimation();
     const ipAddress = document.getElementById("ipInput").value;
-    const uri = `http://localhost:5090/IpAddress/getVirusTotalIpAddressResult?ipAddress=${ipAddress}`;
+    const virusTotalUri = `http://localhost:5090/IpAddress/getVirusTotalIpAddressResult?ipAddress=${ipAddress}`;
+    const ipDbUri = `http://localhost:5090/IpAddress/getIpDbIpAddressResult?ipAddress=${ipAddress}`;
     console.log(ipAddress);
-    console.log(uri);
+    console.log(virusTotalUri);
 
-    const response = await fetch(uri, {
+    const virusTotalResponse = await fetch(virusTotalUri, {
         //mode:'no-cors',
     });
+    
+    const ipDbResponse = await fetch(ipDbUri, {
 
-    if (response.ok) {
-        const data = await response.json();
+    });
+    const ipDbData = await ipDbResponse.json();
+    console.log(ipDbData);
+    if (virusTotalResponse.ok) {
+        const data = await virusTotalResponse.json();
 
         console.log(data);
         stopIpSpinnerAnimation();
@@ -22,16 +28,17 @@ async function getIpAddressResult() {
     }
     else {
         stopIpSpinnerAnimation();
-        console.log(response.status);
+        document.getElementById("ipResult").innerHTML = "probably it is not a valid ip"
+        console.log(virusTotalResponse.status);
     }
 }
 
 function showIpAddressResult(data) {
-    console.log(data);
+    
     const lastAnalysisResults = data.data.attributes.last_analysis_results;
-    console.log(typeof (lastAnalysisResults));
+    
     const lastAnalysisStats = data.data.attributes.last_analysis_stats;
-    console.log(lastAnalysisStats);
+    
 
 
     let placeOfResults = document.getElementById("ipResult");
@@ -44,11 +51,15 @@ function showIpAddressResult(data) {
     }
     placeOfResults.innerHTML += "</ul>";
 
-
+    
     if (lastAnalysisStats.suspicious > 0 || lastAnalysisStats.malicious > 0) {
         console.log("danger");
+        
     }
     else {
         console.log("ok");
+        
     }
+   
 }
+

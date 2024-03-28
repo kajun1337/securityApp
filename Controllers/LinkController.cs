@@ -5,6 +5,7 @@ using securityApp.Repositories;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using securityApp.Interfaces.VirusTotalInterfaces;
+using securityApp.Interfaces.IHybridAnalysesRepository;
 
 
 namespace securityApp.Controllers
@@ -15,13 +16,16 @@ namespace securityApp.Controllers
     {
         private VirusTotalSettings _totalSettings;
         private readonly IVirusTotalLinkRepository _linkRepository;
+        private readonly IHybridLinkRepository _hybridLinkRepository;
         private readonly Encoder _encoder;
 
 
-        public LinkController(VirusTotalSettings virusTotalSettings, IVirusTotalLinkRepository linkRepository, Encoder encoder)
+        public LinkController(VirusTotalSettings virusTotalSettings, IVirusTotalLinkRepository linkRepository,
+            IHybridLinkRepository hybridLinkRepository ,Encoder encoder)
         {
             _totalSettings = virusTotalSettings;
             _linkRepository = linkRepository;
+            _hybridLinkRepository = hybridLinkRepository;
             _encoder = encoder;
         }
 
@@ -43,6 +47,15 @@ namespace securityApp.Controllers
             Console.WriteLine(response.Content);
             return Ok(response.Content);
 
+        }
+
+        [HttpPost]
+        [Route("PostHybridLink")]
+
+        public async Task<IActionResult> PostHybridLink(string link)
+        {
+            var result = _hybridLinkRepository.PostUrlAsync(link);
+            return Ok(result);
         }
     }
 }

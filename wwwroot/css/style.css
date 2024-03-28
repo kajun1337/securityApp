@@ -140,3 +140,9 @@
         transform: rotate(360deg);
     }
 }
+.danger{
+    color:crimson;
+}
+.ok{
+    color:lawngreen;
+}

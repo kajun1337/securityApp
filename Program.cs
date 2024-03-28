@@ -1,7 +1,9 @@
 using securityApp.Helper;
 using securityApp.Interfaces.AbuseIpDbInterfaces;
+using securityApp.Interfaces.IHybridAnalysesRepository;
 using securityApp.Interfaces.VirusTotalInterfaces;
 using securityApp.Repositories.AbuseIpDbRepository;
+using securityApp.Repositories.HybridAnalysesRepository;
 using securityApp.Repositories.VirusTotalRepository;
 
 var SpecificOrigins = "AllowSpecificOrigin";
@@ -14,6 +16,9 @@ builder.Services.AddScoped<IVirusTotalLinkRepository, VirusTotalLinkRepository>(
 builder.Services.AddScoped<IVirusTotalFileRepository, VirusTotalFileRepository>();
 builder.Services.AddScoped<IVirusTotalIpAddressRepository, VirusTotalIpAddressRepository>();
 builder.Services.AddScoped<IAbuseIpDbIpRepository, AbuseIpDbIpRepository>();
+builder.Services.AddScoped<IHybridLinkRepository, HybridLinkRepository>();
+
+builder.Services.AddSingleton<HybridAnalysisSettings>(); 
 builder.Services.AddSingleton<VirusTotalSettings>();
 builder.Services.AddSingleton<Encoder>();
 builder.Services.AddSingleton<FileHandler>();

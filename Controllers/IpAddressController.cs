@@ -45,7 +45,12 @@ namespace securityApp.Controllers
             }
 
             var response = await _abuseIpDbIpRepository.GetAbuseIpDbIpResults(ipAddress);
-            Console.WriteLine(response.Content);
+            dynamic parsedJson = JsonConvert.DeserializeObject(response.Content);
+
+            foreach (var item in parsedJson)
+            {
+                Console.WriteLine(item);
+            }
             return Ok(response.Content);
         }
     }
