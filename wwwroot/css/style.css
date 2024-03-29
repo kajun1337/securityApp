@@ -1,5 +1,9 @@
 ﻿body{
-    background-image:url('../images/Background/beige.jpg')
+    background-image:url('../images/Background/bunny.gif');
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat; background-size:cover;
+    
 }
 
 .container {
@@ -38,11 +42,13 @@
 }
 
 #fileResult {
+    display:flex;
+    justify-content:center;
+    align-items:center;
     margin-bottom:20px;
-    padding-top: 20px;
-    padding-left: 60px;
-    height: 230px;
-    width: 200px;
+
+    height: 250px;
+    width: 250px;
     border: 3px dashed blue;
 }
 
@@ -51,7 +57,7 @@
     margin-bottom: 100px;
     border-radius: 20px;
     color: aqua;
-    padding: 6px;
+    padding: 4px;
     justify-self: center;
     align-self: center;
 }
@@ -63,19 +69,21 @@
     justify-content: space-around;
     align-items: center;
 }
+
+.ip-container,
 .link-container {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
 }
-
+.ip-input-container,
 .link-input-container {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
-
+.scan-Ip,
 .scan-link {
     margin-left: 3px;
     background-color: darkblue;
@@ -84,52 +92,36 @@
     padding: 3px;
     cursor: pointer;
 }
-
+#ipResult,
 #linkResult {
-    padding-left: 75px;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
     height: 200px;
-    width: 200px;
+    width: 250px;
     border: 3px dashed blue;
 }
-.ip-container {
+
+#VT-ip-result-container{
     display: flex;
+    justify-content: flex-start;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
 }
-.ip-input-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-.scan-Ip {
-    margin-left: 3px;
-    background-color: darkblue;
-    border-radius: 20px;
-    color: aqua;
-    padding: 5px;
-    cursor: pointer;
-}
-#ipResult {
-    padding-left: 75px;
-    height: 200px;
-    width: 200px;
-    border: 3px dashed blue;
-}
-.ipSpinner,
+
+.fileSpinner,
 .linkSpinner,
-.fileSpinner {
-    margin-top: 60px;
-    margin-left: 30px;
-    border: 5px solid #f3f3f3; 
-    border-top: 5px solid #3498db; 
+.ipSpinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
     border-radius: 50%;
     width: 50px;
     height: 50px;
     animation: spin 1s linear infinite;
-    display: none; 
+    display: none;
     transform-origin = center;
 }
+
 
 @keyframes spin {
     0% {
@@ -140,9 +132,5 @@
         transform: rotate(360deg);
     }
 }
-.danger{
-    color:crimson;
-}
-.ok{
-    color:lawngreen;
-}
+
+

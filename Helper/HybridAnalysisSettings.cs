@@ -2,7 +2,9 @@
 {
     public class HybridAnalysisSettings
     {
-        public string ApiKey = "rkc1xql5e579940dsfq7wpemf7d11cf4diuwkwtmfccea398u0mv3z4v3759de02";
+        public string ApiKey = "9kr165sg603428c2qhskfnxjeb0425b9cqq61bd059696f5frngrgu7bc759733e";
+        public string ApiSecret = "dad33860edfb43dbeda8af3f3bf6548c3860d18378b9238b";
         public string QuickScanUrl = "https://www.hybrid-analysis.com/api/v2/quick-scan/url";
+        public string OverviewUrl = "https://www.hybrid-analysis.com/api/v2/overview/";
     }
 }

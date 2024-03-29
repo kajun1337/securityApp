@@ -57,5 +57,15 @@ namespace securityApp.Controllers
             var result = _hybridLinkRepository.PostUrlAsync(link);
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("GetHybridLinkResult")]
+
+        public async Task<IActionResult> GetHybridLinkResult(string link)
+        {
+            var encodedLink = _encoder.LinkToSha256(link);
+            var response = _hybridLinkRepository.GetUrlResultAsync(encodedLink);
+            return Ok(response);
+        }
     }
 }

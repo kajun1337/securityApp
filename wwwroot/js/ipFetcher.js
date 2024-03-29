@@ -28,7 +28,7 @@ async function getIpAddressResult() {
     }
     else {
         stopIpSpinnerAnimation();
-        document.getElementById("ipResult").innerHTML = "probably it is not a valid ip"
+        document.getElementById("VT-ip-result-container").innerHTML = "probably it is not a valid ip"
         console.log(virusTotalResponse.status);
     }
 }
@@ -41,15 +41,15 @@ function showIpAddressResult(data) {
     
 
 
-    let placeOfResults = document.getElementById("ipResult");
+    let placeOfResults = document.getElementById("VT-ip-result-container");
     placeOfResults.innerHTML = "";
     placeOfResults.innerHTML += "<h5> Scanning Results </h5>"
-    placeOfResults.innerHTML += "<ul>";
+    
 
     for (var item in lastAnalysisStats) {
         placeOfResults.innerHTML += "<li>" + item + ": " + lastAnalysisStats[item] + "</li>";
     }
-    placeOfResults.innerHTML += "</ul>";
+    
 
     
     if (lastAnalysisStats.suspicious > 0 || lastAnalysisStats.malicious > 0) {

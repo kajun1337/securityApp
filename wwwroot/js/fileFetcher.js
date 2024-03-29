@@ -76,7 +76,7 @@ function showFileResults(data) {
     console.log(lastAnalysisStats);
 
 
-    let placeOfResults = document.getElementById("fileResult");
+    let placeOfResults = document.getElementById("VT-file-result");
     placeOfResults.innerHTML = "";
     placeOfResults.innerHTML += "<h5> Scanning Results </h5>"
     placeOfResults.innerHTML += "<ul>";

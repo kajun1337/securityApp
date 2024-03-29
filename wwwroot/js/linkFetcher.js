@@ -25,7 +25,7 @@ async function sendLink() {
     } else {
         stopLinkSpinnerAnimation();
         console.error("errrokee");
-        document.getElementById("linkResult").innerText = "something went wrong";
+        document.getElementById("VT-link-result").innerText = "something went wrong";
     }
 }
 
@@ -45,11 +45,11 @@ async function getLinkResult(link) {
     }
     else if (response.status === 404) {
         stopLinkSpinnerAnimation();
-        document.getElementById("linkResult").innerText = "Link not found";
+        document.getElementById("VT-link-result").innerText = "Link not found";
     }
     else {
         stopLinkSpinnerAnimation();
-        document.getElementById("linkResult").innerText = "something went wrong";
+        document.getElementById("VT-link-result").innerText = "something went wrong";
     }
 }
 async function showLinkResults(data) {
@@ -60,15 +60,15 @@ async function showLinkResults(data) {
     console.log(lastAnalysisStats);
 
 
-    let placeOfResults = document.getElementById("linkResult");
+    let placeOfResults = document.getElementById("VT-link-result");
     placeOfResults.innerHTML = "";
     placeOfResults.innerHTML += "<h5> Scanning Results </h5>"
-    placeOfResults.innerHTML += "<ul>";
+ 
 
     for (var item in lastAnalysisStats) {
         placeOfResults.innerHTML += "<li>" + item + ": " + lastAnalysisStats[item] + "</li>";
     }
-    placeOfResults.innerHTML += "</ul>";
+
 
 
     if (lastAnalysisStats.suspicious > 0 || lastAnalysisStats.malicious > 0) {
