@@ -10,7 +10,6 @@ function startFileSpinnerAnimation() {
 function stopFileSpinnerAnimation() {
     let spinner = document.getElementById("fileSpinner");
     spinner.style.display = "none";
-
 }
 
 function startLinkSpinnerAnimation() {

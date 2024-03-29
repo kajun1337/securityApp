@@ -1,7 +1,12 @@
 ﻿// http://localhost:5090/IpAddress/getIpDbIpAddressResult?ipAddress=192.33.22.23
 // http://localhost:5090/IpAddress/getVirusTotalIpAddressResult?ipAddress=192.1.1.1
 
-
+const ipInput = document.getElementById("ipInput");
+ipInput.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+        getIpAddressResult();
+    }
+})
 async function getIpAddressResult() {
     startIpSpinnerAnimation();
     const ipAddress = document.getElementById("ipInput").value;

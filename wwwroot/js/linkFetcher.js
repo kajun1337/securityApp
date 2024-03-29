@@ -1,4 +1,12 @@
-﻿const SendLinkuri = "http://localhost:5090/Link/SendLink?link=";
+﻿
+const SendLinkuri = "http://localhost:5090/Link/SendLink?link=";
+
+const linkInput = document.getElementById("linkInput");
+linkInput.addEventListener("keyup", function (event) {
+    if (event.key === "Enter") {
+        sendLink();
+    }
+})
 async function sendLink() {
     startLinkSpinnerAnimation();
     const link = document.getElementById("linkInput").value;

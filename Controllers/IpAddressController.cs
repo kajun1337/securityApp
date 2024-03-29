@@ -18,7 +18,7 @@ namespace securityApp.Controllers
         {
             _virusTotalIpAddressRepository = ipAddressRepository;
             _abuseIpDbIpRepository = abuseIpDbIpRepository;
-            
+               
         }
         [HttpGet]
         [Route("getVirusTotalIpAddressResult")]

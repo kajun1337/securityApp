@@ -9,6 +9,7 @@ namespace securityApp.Repositories.VirusTotalRepository
     public class VirusTotalLinkRepository : IVirusTotalLinkRepository
     {
         private readonly VirusTotalSettings _totalSettings;
+        private const string getLinkUri = "https://www.virustotal.com/api/v3/urls/";
         public VirusTotalLinkRepository(VirusTotalSettings virusTotalSettings)
         {
             _totalSettings = virusTotalSettings;
@@ -16,7 +17,7 @@ namespace securityApp.Repositories.VirusTotalRepository
 
         public async Task<RestResponse> GetUrlScanResultAsync(string encodedUrl)
         {
-            var options = new RestClientOptions($"https://www.virustotal.com/api/v3/urls/{encodedUrl}");
+            var options = new RestClientOptions($"{getLinkUri}{encodedUrl}");
             var client = new RestClient(options);
             var request = new RestRequest("");
             request.AddHeader("accept", "application/json");
