@@ -56,5 +56,14 @@ namespace securityApp.Controllers
 
             return Ok(response.Content);
         }
+
+        [HttpGet]
+        [Route("Ha-GetFileResult")]
+
+        public async Task<IActionResult> GetHybridResultFile(string encodedFileSha)
+        {
+            var response = await _hybridFileRepository.GetFileReport(encodedFileSha);
+            return Ok(response.Content);
+        }
     }
 }

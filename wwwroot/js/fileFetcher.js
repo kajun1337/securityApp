@@ -1,12 +1,14 @@
-
-
+const vtFileUploadUri = "http://localhost:5090/File/VT-UploadFile?file=";
+const vtGetFileResultUri = "http://localhost:5090/File/VT-GetFileResults?encodedFileSha256=";
+const haFileUploadUri = "http://localhost:5090/File/Ha-UploadFile=";
+const haGetFileResultUri = "http://localhost:5090/File/Ha-GetFileResult?encodedFileSha=";
 async function uploadFile() {
     startFileSpinnerAnimation();
     console.log("file sent");
     const file = document.getElementById("fileInput").files[0];
     const formData = new FormData();
     formData.append('file', file);
-    const uri = `http://localhost:5090/File/UploadFile?file=${file}`;
+    const uri = `${vtFileUploadUri}${file}`;
     const response = await fetch(uri, {
         //mode:'no-cors',
         method: 'POST',
@@ -24,7 +26,7 @@ async function getFilesResult() {
     filesToSha256(fileToScan).then(hash => {
         const hashed = hash;
         console.log(hashed); 
-        fetch(`http://localhost:5090/File/GetFileResults?encodedFileSha256=${hashed}`, {
+        fetch(`${vtGetFileResultUri}${hashed}`, {
             //mode: 'no-cors'
         })
 

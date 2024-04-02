@@ -14,9 +14,21 @@ namespace securityApp.Repositories.HybridAnalysisRepository
             _fileHandler = fileHandler;
             _settings = hybridAnalysisSettings;
         }
-        public Task<RestResponse> GetFileReport(string sha256)
+        public async Task<RestResponse> GetFileReport(string sha256)
         {
-            throw new NotImplementedException();
+            var options = new RestClientOptions($"{_settings.OverviewSha}{sha256}");
+            var client = new RestClient(options);
+            var request = new RestRequest("");
+
+            request.AddHeader("accept", "application/json");
+            request.AddHeader("api-key",_settings.ApiKey);
+
+            var response = await client.GetAsync(request);
+
+            Console.WriteLine(response.Content);
+            return response;
+
+
         }
 
         public async Task<RestResponse> SendFile(IFormFile file)
