@@ -1,5 +1,7 @@
 ﻿
-const SendLinkuri = "http://localhost:5090/Link/SendLink?link=";
+const vtSendLinkUri = "http://localhost:5090/Link/Vt-SendLink?link=";
+const vtGetLinkUri = "http://localhost:5090/Link/Vt-GetLinkResult?link=";
+const haSendLinkUri = "http://localhost:5090/Link/Ha-SendLink?link=";
 
 const linkInput = document.getElementById("linkInput");
 linkInput.addEventListener("keyup", function (event) {
@@ -10,7 +12,7 @@ linkInput.addEventListener("keyup", function (event) {
 async function sendLink() {
     startLinkSpinnerAnimation();
     const link = document.getElementById("linkInput").value;
-    const uri = `http://localhost:5090/Link/SendLink?link=${link}`;
+    const uri = `${vtSendLinkUri}${link}`;
     console.log(link);
     console.log(uri);
 
@@ -39,7 +41,7 @@ async function sendLink() {
 
 async function getLinkResult(link) {
     console.log("grdi");
-    const response = await fetch(`http://localhost:5090/Link/GetLinkResult?link=${encodeURIComponent(link)}`, {
+    const response = await fetch(`${vtGetLinkUri}${encodeURIComponent(link)}`, {
         //mode: 'no-cors'
     });
     console.log(response.status);

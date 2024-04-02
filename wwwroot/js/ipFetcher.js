@@ -1,6 +1,9 @@
 ﻿// http://localhost:5090/IpAddress/getIpDbIpAddressResult?ipAddress=192.33.22.23
 // http://localhost:5090/IpAddress/getVirusTotalIpAddressResult?ipAddress=192.1.1.1
 
+const vtGetIpUri = "http://localhost:5090/IpAddress/Vt-GetIpResult?ipAddress=";
+const ipdbGetIpUri = "http://localhost:5090/IpAddress/IpDb-GetIpResult?ipAddress="
+
 const ipInput = document.getElementById("ipInput");
 ipInput.addEventListener("keyup", function (event) {
     if (event.key === "Enter") {
@@ -10,8 +13,8 @@ ipInput.addEventListener("keyup", function (event) {
 async function getIpAddressResult() {
     startIpSpinnerAnimation();
     const ipAddress = document.getElementById("ipInput").value;
-    const virusTotalUri = `http://localhost:5090/IpAddress/getVirusTotalIpAddressResult?ipAddress=${ipAddress}`;
-    const ipDbUri = `http://localhost:5090/IpAddress/getIpDbIpAddressResult?ipAddress=${ipAddress}`;
+    const virusTotalUri = `${vtGetIpUri}${ipAddress}`;
+    const ipDbUri = `${ipdbGetIpUri}${ipAddress}`;
     console.log(ipAddress);
     console.log(virusTotalUri);
 
