@@ -54,8 +54,8 @@ namespace securityApp.Controllers
 
         public async Task<IActionResult> PostHybridLink(string link)
         {
-            var result = _hybridLinkRepository.PostUrlAsync(link);
-            return Ok(result);
+            var result = await _hybridLinkRepository.PostUrlAsync(link);
+            return Ok(result.Content);
         }
 
         [HttpGet]
@@ -64,7 +64,8 @@ namespace securityApp.Controllers
         public async Task<IActionResult> GetHybridLinkResult(string link)
         {
             var encodedLink = _encoder.LinkToSha256(link);
-            var response = _hybridLinkRepository.GetUrlResultAsync(encodedLink);
+            Console.WriteLine(encodedLink);
+            var response = await _hybridLinkRepository.GetUrlResultAsync(encodedLink);
             return Ok(response);
         }
     }

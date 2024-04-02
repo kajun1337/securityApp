@@ -37,23 +37,11 @@ namespace securityApp.Repositories.HybridAnalysesRepository
             request.AddHeader("api-key", _hybridAnalysisSettings.ApiKey);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             Console.WriteLine(url);
-            request.AddParameter("scan_type", "all");
-            request.AddParameter("url", url);
-            request.AddParameter("comment", "");
-            request.AddParameter("submit_name", "");
-            Console.WriteLine(request.ToString());
-            try
-            {
-                var response = await client.PostAsync(request);
-                return response;
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                return null;
-            }
-            
-            return null;
+            request.AddBody($"scan_type=all&url={url}&comment=&submit_name=");
+
+            var response = await client.PostAsync(request);
+            Console.WriteLine(response.Content);
+            return response;
         }
     }
 }
