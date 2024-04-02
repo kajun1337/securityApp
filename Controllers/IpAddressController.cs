@@ -21,7 +21,7 @@ namespace securityApp.Controllers
                
         }
         [HttpGet]
-        [Route("getVirusTotalIpAddressResult")]
+        [Route("Vt-GetIpResult")]
         public async Task<IActionResult> GetVirusTotalIpAddressResult(string ipAddress)
         {
             Console.WriteLine(ipAddress);
@@ -35,7 +35,7 @@ namespace securityApp.Controllers
         }
 
         [HttpGet]
-        [Route("getIpDbIpAddressResult")]
+        [Route("IpDb-GetIpResult")]
 
         public async Task<IActionResult> getIpDbIpAddressResult(string ipAddress)
         {

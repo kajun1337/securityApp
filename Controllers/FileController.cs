@@ -27,8 +27,8 @@ namespace securityApp.Controllers
             _virusTotalSettings = virusTotalSettings;
         }
         [HttpPost]
-        [Route("UploadFile")]
-        public async Task<IActionResult> UploadFile(IFormFile file)
+        [Route("VT-UploadFile")]
+        public async Task<IActionResult> VtUploadFile(IFormFile file)
         {
             Console.WriteLine(_encoder.EncodeFileToSHA265(file));
             var result = await _virusTotalFileRepository.UploadFile(file);
@@ -37,8 +37,8 @@ namespace securityApp.Controllers
         }
 
         [HttpGet]
-        [Route("GetFileResults")]
-        public async Task<IActionResult> GetResultsOfFile(string encodedFileSha256)
+        [Route("VT-GetFileResults")]
+        public async Task<IActionResult> VTGetResultsOfFile(string encodedFileSha256)
         {
 
             var response = await _virusTotalFileRepository.GetFileResult(encodedFileSha256);
@@ -48,7 +48,7 @@ namespace securityApp.Controllers
         }
 
         [HttpPost]
-        [Route("PostHybridFile")]
+        [Route("Ha-UploadFile")]
 
         public async Task<IActionResult> PostHybridFile(IFormFile file)
         {

@@ -31,7 +31,7 @@ namespace securityApp.Controllers
 
 
         [HttpPost]
-        [Route("SendLink")]
+        [Route("Vt-SendLink")]
         public async Task<IActionResult> SendLink(string link)
         {
             var result = await _linkRepository.PostUrlScanAsync(link);
@@ -39,7 +39,7 @@ namespace securityApp.Controllers
         }
 
         [HttpGet]
-        [Route("GetLinkResult")]
+        [Route("Vt-GetLinkResult")]
         public async Task<IActionResult> GetLinkResult(string link)
         {
             var encodedUrl = _encoder.EncodeUrlToBase64(link);
@@ -50,7 +50,7 @@ namespace securityApp.Controllers
         }
 
         [HttpPost]
-        [Route("PostHybridLink")]
+        [Route("Ha-SendLink")]
 
         public async Task<IActionResult> PostHybridLink(string link)
         {
@@ -59,7 +59,7 @@ namespace securityApp.Controllers
         }
 
         [HttpGet]
-        [Route("GetHybridLinkResult")]
+        [Route("Ha-GetLinkResult")]
 
         public async Task<IActionResult> GetHybridLinkResult(string link)
         {
