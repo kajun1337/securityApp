@@ -1,9 +1,11 @@
 using securityApp.Helper;
 using securityApp.Interfaces.AbuseIpDbInterfaces;
 using securityApp.Interfaces.IHybridAnalysesRepository;
+using securityApp.Interfaces.IHybridAnalysisRepository;
 using securityApp.Interfaces.VirusTotalInterfaces;
 using securityApp.Repositories.AbuseIpDbRepository;
 using securityApp.Repositories.HybridAnalysesRepository;
+using securityApp.Repositories.HybridAnalysisRepository;
 using securityApp.Repositories.VirusTotalRepository;
 
 var SpecificOrigins = "AllowSpecificOrigin";
@@ -17,6 +19,7 @@ builder.Services.AddScoped<IVirusTotalFileRepository, VirusTotalFileRepository>(
 builder.Services.AddScoped<IVirusTotalIpAddressRepository, VirusTotalIpAddressRepository>();
 builder.Services.AddScoped<IAbuseIpDbIpRepository, AbuseIpDbIpRepository>();
 builder.Services.AddScoped<IHybridLinkRepository, HybridLinkRepository>();
+builder.Services.AddScoped<IHybridFileRepository, HybridFileRepository>();
 
 builder.Services.AddSingleton<HybridAnalysisSettings>(); 
 builder.Services.AddSingleton<VirusTotalSettings>();
@@ -25,7 +28,7 @@ builder.Services.AddSingleton<FileHandler>();
 builder.Services.AddSingleton<AbuseIpDbSettings>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
@@ -41,19 +44,19 @@ var app = builder.Build();
 
 
 //Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
-
-if (builder.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
-app.UseDefaultFiles();
-app.UseStaticFiles();
+//if (builder.Environment.IsDevelopment())
+//{
+//    app.UseDeveloperExceptionPage();
+//}
+
+//app.UseDefaultFiles();
+//app.UseStaticFiles();
 app.UseCors(SpecificOrigins);
 
 app.UseRouting();

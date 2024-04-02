@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using securityApp.Helper;
+using securityApp.Interfaces.IHybridAnalysisRepository;
 using securityApp.Interfaces.VirusTotalInterfaces;
 using System.Data;
 
@@ -13,13 +14,16 @@ namespace securityApp.Controllers
         private const string folderName = "FilesToUpload";
         private readonly string folderPath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
+        private readonly IHybridFileRepository _hybridFileRepository;
         private readonly IVirusTotalFileRepository _virusTotalFileRepository;
         private readonly Encoder _encoder;
         private readonly VirusTotalSettings _virusTotalSettings;
-        public FileController(IVirusTotalFileRepository fileRepository, Encoder encoder, VirusTotalSettings virusTotalSettings)
+
+        public FileController(IVirusTotalFileRepository fileRepository, Encoder encoder, VirusTotalSettings virusTotalSettings, IHybridFileRepository hybridFileRepository)
         {
             _encoder = encoder;
             _virusTotalFileRepository = fileRepository;
+            _hybridFileRepository = hybridFileRepository;
             _virusTotalSettings = virusTotalSettings;
         }
         [HttpPost]
@@ -43,5 +47,14 @@ namespace securityApp.Controllers
             return Ok(response.Content);
         }
 
+        [HttpPost]
+        [Route("PostHybridFile")]
+
+        public async Task<IActionResult> PostHybridFile(IFormFile file)
+        {
+            var response = await _hybridFileRepository.SendFile(file);
+
+            return Ok(response.Content);
+        }
     }
 }

@@ -15,8 +15,8 @@ namespace securityApp.Repositories.HybridAnalysesRepository
         }
         public async Task<RestResponse> GetUrlResultAsync(string encodedUrl)
         {
-            Console.WriteLine($"{_hybridAnalysisSettings.OverviewUrl}{encodedUrl}");
-            var options = new RestClientOptions($"{_hybridAnalysisSettings.OverviewUrl}{encodedUrl}");
+            Console.WriteLine($"{_hybridAnalysisSettings.OverviewSha}{encodedUrl}");
+            var options = new RestClientOptions($"{_hybridAnalysisSettings.OverviewSha}{encodedUrl}");
             var client = new RestClient(options);
             var request = new RestRequest("");
             request.AddHeader("accept", "application/json");
@@ -35,7 +35,7 @@ namespace securityApp.Repositories.HybridAnalysesRepository
             var request = new RestRequest("");
             request.AddHeader("accept", "application/json");
             request.AddHeader("api-key", _hybridAnalysisSettings.ApiKey);
-            request.AddHeader("content-Type", "application/x-www-form-urlencoded");
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             Console.WriteLine(url);
             request.AddParameter("scan_type", "all");
             request.AddParameter("url", url);
