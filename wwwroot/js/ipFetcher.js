@@ -7,7 +7,7 @@ const ipdbGetIpUri = "http://localhost:5090/IpAddress/IpDb-GetIpResult?ipAddress
 const ipInput = document.getElementById("ipInput");
 ipInput.addEventListener("keyup", function (event) {
     if (event.key === "Enter") {
-        getIpAddressResult();
+       getIpAddressResult();
     }
 })
 async function getIpAddressResult() {

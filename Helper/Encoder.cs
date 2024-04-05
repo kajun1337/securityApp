@@ -26,18 +26,11 @@ namespace securityApp.Helper
         }
         public string LinkToSha256(string text)
         {
-            StringBuilder Sb = new StringBuilder();
-            using (var hash = SHA256.Create())
+            using (var sha256 = SHA256.Create())
             {
-                Encoding enc = Encoding.UTF8;
-                byte[] result = hash.ComputeHash(enc.GetBytes(text));
-
-                foreach(byte b in result)
-                {
-                    Sb.Append(b.ToString("x2"));
-                }
+                byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(text));
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
             }
-            return Sb.ToString();
         }
     }
 }

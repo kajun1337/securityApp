@@ -3,11 +3,14 @@ using RestSharp.Authenticators;
 using securityApp.Helper;
 using securityApp.Interfaces.IHybridAnalysesRepository;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Runtime.Intrinsics.Arm;
 
 namespace securityApp.Repositories.HybridAnalysesRepository
 {
     public class HybridLinkRepository : IHybridLinkRepository
     {
+        
         private readonly HybridAnalysisSettings _hybridAnalysisSettings;
         public HybridLinkRepository(HybridAnalysisSettings hybridAnalysisSettings)
         {
@@ -40,8 +43,25 @@ namespace securityApp.Repositories.HybridAnalysesRepository
             request.AddBody($"scan_type=all&url={url}&comment=&submit_name=");
 
             var response = await client.PostAsync(request);
-            Console.WriteLine(response.Content);
+
+            var finished = JObject.Parse(response.Content)["finished"].ToString();
+            Console.WriteLine(finished);
+            
+            if (finished != "True")
+            {
+                await Task.Delay(4000);
+                return await PostUrlAsync(url);
+            }
+            Console.WriteLine(finished);
+            
+            //Console.WriteLine(response.Content);
             return response;
+        }
+
+        public string GetShaFromResponse(RestResponse response)
+        {
+            string sha = JObject.Parse(response.Content)["sha256"].ToString();
+            return sha;
         }
     }
 }

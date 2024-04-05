@@ -6,5 +6,6 @@ namespace securityApp.Interfaces.IHybridAnalysesRepository
     {
         Task<RestResponse> PostUrlAsync(string url);
         Task<RestResponse> GetUrlResultAsync(string encodedUrl);
+        string GetShaFromResponse(RestResponse response);
     }
 }

@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using securityApp.Interfaces.VirusTotalInterfaces;
 using securityApp.Interfaces.IHybridAnalysesRepository;
+using System.Runtime.CompilerServices;
 
 
 namespace securityApp.Controllers
@@ -18,6 +19,7 @@ namespace securityApp.Controllers
         private readonly IVirusTotalLinkRepository _linkRepository;
         private readonly IHybridLinkRepository _hybridLinkRepository;
         private readonly Encoder _encoder;
+        private string _sha256;  
 
 
         public LinkController(VirusTotalSettings virusTotalSettings, IVirusTotalLinkRepository linkRepository,
@@ -32,7 +34,7 @@ namespace securityApp.Controllers
 
         [HttpPost]
         [Route("Vt-SendLink")]
-        public async Task<IActionResult> SendLink(string link)
+        public async Task<IActionResult> SendVtLink(string link)
         {
             var result = await _linkRepository.PostUrlScanAsync(link);
             return Ok();
@@ -40,7 +42,7 @@ namespace securityApp.Controllers
 
         [HttpGet]
         [Route("Vt-GetLinkResult")]
-        public async Task<IActionResult> GetLinkResult(string link)
+        public async Task<IActionResult> GetVtLinkResult(string link)
         {
             var encodedUrl = _encoder.EncodeUrlToBase64(link);
             var response = await _linkRepository.GetUrlScanResultAsync(encodedUrl);
@@ -55,6 +57,8 @@ namespace securityApp.Controllers
         public async Task<IActionResult> PostHybridLink(string link)
         {
             var result = await _hybridLinkRepository.PostUrlAsync(link);
+            //JObject content = Json.Parse(result.Content);
+            //if (content["finished"])
             return Ok(result.Content);
         }
 
@@ -62,11 +66,11 @@ namespace securityApp.Controllers
         [Route("Ha-GetLinkResult")]
 
         public async Task<IActionResult> GetHybridLinkResult(string link)
-        {
-            var encodedLink = _encoder.LinkToSha256(link);
-            Console.WriteLine(encodedLink);
-            var response = await _hybridLinkRepository.GetUrlResultAsync(encodedLink);
-            return Ok(response);
+        {   
+            var encodedUrl = _encoder.LinkToSha256(link);
+            Console.WriteLine(encodedUrl);
+            var response = await _hybridLinkRepository.GetUrlResultAsync(encodedUrl);
+            return Ok(response.Content);
         }
     }
 }

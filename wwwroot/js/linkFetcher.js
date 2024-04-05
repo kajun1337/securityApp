@@ -1,7 +1,9 @@
 ﻿
+
 const vtSendLinkUri = "http://localhost:5090/Link/Vt-SendLink?link=";
 const vtGetLinkUri = "http://localhost:5090/Link/Vt-GetLinkResult?link=";
 const haSendLinkUri = "http://localhost:5090/Link/Ha-SendLink?link=";
+const haGetLinkUri = "http://localhost:5090/Link/Ha-GetLinkResult?link=";
 
 const linkInput = document.getElementById("linkInput");
 linkInput.addEventListener("keyup", function (event) {
@@ -10,25 +12,19 @@ linkInput.addEventListener("keyup", function (event) {
     }
 })
 async function sendLink() {
-    startLinkSpinnerAnimation();
     const link = document.getElementById("linkInput").value;
-    const uri = `${vtSendLinkUri}${link}`;
-    console.log(link);
-    console.log(uri);
+    startLinkSpinnerAnimation();
+    try {
+        let haResponse = await sendHaLink(link);
+    } catch (ex){
+        console.log(ex);
+    }
+    //let haResponse = await sendHaLink(link);
+    let vtResponse = await sendVtLink(link);
 
-    const response = await fetch(uri, {
-        //mode:'no-cors',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            link: link
-        })
-    });
-
-    console.log(response.status);
-    if (response.ok) {
+    console.log(vtResponse.status);
+    //console.log(haResponse.status);
+    if (vtResponse.ok) {
 
         getLinkResult(link);
 
@@ -41,9 +37,7 @@ async function sendLink() {
 
 async function getLinkResult(link) {
     console.log("grdi");
-    const response = await fetch(`${vtGetLinkUri}${encodeURIComponent(link)}`, {
-        //mode: 'no-cors'
-    });
+    const response = await getVtLinkResult(link);
     console.log(response.status);
     if (response.ok) {
 
@@ -87,4 +81,60 @@ async function showLinkResults(data) {
     else {
         console.log("ok");
     }
+}
+
+async function sendHaLink(link) {
+    
+    const uri = `${haSendLinkUri}${link}`;
+    const response = await fetch(uri, {
+        //mode:'no-cors',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            link: link
+        })
+    });
+    let data = await response.json();
+    console.log(data);
+    return response;
+    
+}
+
+async function sendVtLink(link) {
+    
+    const uri = `${vtSendLinkUri}${link}`;
+    console.log(link);
+    console.log(uri);
+
+    const response = await fetch(uri, {
+        //mode:'no-cors',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            link: link
+        })
+    });
+
+    return response;
+}
+
+async function getVtLinkResult(link) {
+    const response = await fetch(`${vtGetLinkUri}${encodeURIComponent(link)}`, {
+        //mode: 'no-cors'
+    });
+    return response;
+}
+
+async function getHaLinkResult(link) {
+    const response = await fetch(`${haGetLinkUri}${encodeURIComponent(link)}`, {
+        //mode: 'no-cors'
+    });
+    const data = response.json();
+
+    console.log(data);
+    return response;
 }
