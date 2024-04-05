@@ -77,7 +77,7 @@ namespace securityApp.Repositories.VirusTotalRepository
             request.AddFile("file", filePath, file.ContentType);
             var response = await client.PostAsync(request);
             Console.WriteLine("{0}", response.Content);
-            File.Delete(filePath);
+            
             return response;
         }
 

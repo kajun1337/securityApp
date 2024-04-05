@@ -52,7 +52,7 @@ namespace securityApp.Repositories.HybridAnalysesRepository
                 await Task.Delay(4000);
                 return await PostUrlAsync(url);
             }
-            Console.WriteLine(finished);
+            
             
             //Console.WriteLine(response.Content);
             return response;

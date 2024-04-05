@@ -16,6 +16,7 @@ async function sendLink() {
     startLinkSpinnerAnimation();
     try {
         let haResponse = await sendHaLink(link);
+;
     } catch (ex){
         console.log(ex);
     }

@@ -9,12 +9,17 @@
             var filePath = Path.Combine(folderPath, file.FileName);
 
             Console.WriteLine(filePath);
-            using (var fileContentStream = new MemoryStream())
+            if (!File.Exists(filePath))
             {
-                await file.CopyToAsync(fileContentStream);
-                await File.WriteAllBytesAsync(Path.Combine(folderPath, file.FileName),
-                    fileContentStream.ToArray());
+                using (var fileContentStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(fileContentStream);
+                    await File.WriteAllBytesAsync(Path.Combine(folderPath, file.FileName),
+                        fileContentStream.ToArray());
+                }
             }
+
+
         }
     }
 }
