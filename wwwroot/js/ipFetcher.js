@@ -15,8 +15,6 @@ async function getIpAddressResult() {
     const ipAddress = document.getElementById("ipInput").value;
     const virusTotalUri = `${vtGetIpUri}${ipAddress}`;
     const ipDbUri = `${ipdbGetIpUri}${ipAddress}`;
-    console.log(ipAddress);
-    console.log(virusTotalUri);
 
     const virusTotalResponse = await fetch(virusTotalUri, {
         //mode:'no-cors',
@@ -32,7 +30,7 @@ async function getIpAddressResult() {
 
         console.log(data);
         stopIpSpinnerAnimation();
-        showIpAddressResult(data);
+        showIpAddressResult(data,ipDbData);
     }
     else {
         stopIpSpinnerAnimation();
@@ -41,32 +39,39 @@ async function getIpAddressResult() {
     }
 }
 
-function showIpAddressResult(data) {
-    
-    const lastAnalysisResults = data.data.attributes.last_analysis_results;
+function showIpAddressResult(data, abuseData) {
     
     const lastAnalysisStats = data.data.attributes.last_analysis_stats;
-    
+    const abuseIpStats = abuseData.data;
+    console.log(abuseIpStats);
+    let vtPlaceOfResults = document.getElementById("VT-ip-result-container");
+    vtPlaceOfResults.innerHTML = "";
+    vtPlaceOfResults.innerHTML += "<h5> Scanning Results </h5>"
 
+    let abuseIpPlaceOfResults = document.getElementById("AbuseIp-result-container");
+    abuseIpPlaceOfResults.innerHTML = "";
+    abuseIpPlaceOfResults.innerHTML += "<h5> AbuseIp Results </h5>"
 
-    let placeOfResults = document.getElementById("VT-ip-result-container");
-    placeOfResults.innerHTML = "";
-    placeOfResults.innerHTML += "<h5> Scanning Results </h5>"
-    
+  
 
     for (var item in lastAnalysisStats) {
-        placeOfResults.innerHTML += "<li>" + item + ": " + lastAnalysisStats[item] + "</li>";
+        vtPlaceOfResults.innerHTML += "<li>" + item + ": " + lastAnalysisStats[item] + "</li>";
     }
-    
+    for (let i = 0; i < 6; i++) {
 
-    
+        abuseIpPlaceOfResults.innerHTML += "<li>" + abuseIpStats[i] + "</li>";
+        try {
+            console.log(abuseIpStats[i].abuseConfidenceScore);
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
     if (lastAnalysisStats.suspicious > 0 || lastAnalysisStats.malicious > 0) {
         console.log("danger");
-        
     }
     else {
-        console.log("ok");
-        
+        console.log("ok");      
     }
    
 }
