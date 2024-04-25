@@ -46,7 +46,7 @@ namespace securityApp.Controllers
         {
             var encodedUrl = _encoder.EncodeUrlToBase64(link);
             var response = await _linkRepository.GetUrlScanResultAsync(encodedUrl);
-            Console.WriteLine(response.Content);
+            //Console.WriteLine(response.Content);
             return Ok(response.Content);
 
         }

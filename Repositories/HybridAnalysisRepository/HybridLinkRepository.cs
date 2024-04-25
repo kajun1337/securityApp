@@ -42,20 +42,14 @@ namespace securityApp.Repositories.HybridAnalysesRepository
             Console.WriteLine(url);
             request.AddBody($"scan_type=all&url={url}&comment=&submit_name=");
 
-            var response = await client.PostAsync(request);
-
-            var finished = JObject.Parse(response.Content)["finished"].ToString();
-            Console.WriteLine(finished);
+            var response = await client.PostAsync(request); 
+            Console.WriteLine(response.Content);
             
-            if (finished != "True")
-            {
-                await Task.Delay(4000);
-                return await PostUrlAsync(url);
-            }
-            
-            
+            var encodedUrl = GetShaFromResponse(response);
+            var result = await GetUrlResultAsync(encodedUrl);
+            return result;
             //Console.WriteLine(response.Content);
-            return response;
+           
         }
 
         public string GetShaFromResponse(RestResponse response)

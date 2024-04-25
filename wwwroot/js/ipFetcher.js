@@ -44,6 +44,8 @@ function showIpAddressResult(data, abuseData) {
     const lastAnalysisStats = data.data.attributes.last_analysis_stats;
     const abuseIpStats = abuseData.data;
     console.log(abuseIpStats);
+    let ipResultPlace = document.getElementById("ipResult");
+    ipResultPlace.style.justifyContent = "flex-start";
     let vtPlaceOfResults = document.getElementById("VT-ip-result-container");
     vtPlaceOfResults.innerHTML = "";
     vtPlaceOfResults.innerHTML += "<h5> Scanning Results </h5>"
@@ -57,15 +59,10 @@ function showIpAddressResult(data, abuseData) {
     for (var item in lastAnalysisStats) {
         vtPlaceOfResults.innerHTML += "<li>" + item + ": " + lastAnalysisStats[item] + "</li>";
     }
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 13; i++) {
 
         abuseIpPlaceOfResults.innerHTML += "<li>" + abuseIpStats[i] + "</li>";
-        try {
-            console.log(abuseIpStats[i].abuseConfidenceScore);
-        }
-        catch (e) {
-            console.log(e);
-        }
+        
     }
     if (lastAnalysisStats.suspicious > 0 || lastAnalysisStats.malicious > 0) {
         console.log("danger");

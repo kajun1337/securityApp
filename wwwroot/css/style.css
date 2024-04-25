@@ -101,17 +101,28 @@
     height: 200px;
     width: 250px;
     border: 3px dashed blue;
-    flex-wrap: wrap;
-    overflow-x:auto;
+    flex-wrap: nowrap;
+    
 }
-
-#VT-ip-result-container{
-    height: 150px;
-    width: 250px;
+#ipResult{
+    overflow-y: scroll;
+    justify-content: center;
+    
+    
+}
+#VT-ip-result-container {
+    height: auto;
+    width: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
-
+}
+AbuseIp-result-container{
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .fileSpinner,
@@ -125,6 +136,7 @@
     animation: spin 1s linear infinite;
     display: none;
     transform-origin = center;
+
 }
 
 
